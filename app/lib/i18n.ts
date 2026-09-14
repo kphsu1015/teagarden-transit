@@ -219,7 +219,7 @@ export const UI: Record<Lang, UIDict> = {
     heroKicker: "嘉義・番路・阿里山",
     heroTitle1: "茶香花園民宿",
     heroTitle2: "交通與班次查詢",
-    heroP1: "茶香花園民宿鄰近「龍頭站」及「龍頭坪站」。您可搭乘台灣好行阿里山線公車、在地公車（奮起湖線、達邦線），或搭乘阿里山森林鐵路轉乘公車前來。",
+    heroP1: "茶香花園民宿鄰近「龍頭站」及「龍頭坪站」。您可搭乘台灣好行阿里山線公車、奮起湖線、達邦線公車，或搭乘阿里山森林鐵路轉乘公車前來。",
     heroP2: "於龍頭站或龍頭坪站下車後，步行約10～15分鐘即可抵達民宿。以下提供即時班次查詢，並可依照目前時間協助您確認是否來得及搭乘下一班車。",
     navBus: "搭乘公車",
     navRail: "搭乘主線小火車",
@@ -235,7 +235,7 @@ export const UI: Record<Lang, UIDict> = {
 
     busCardTitle: "搭乘公車",
     busCardBody: (stop: string) =>
-      `從嘉義火車站或高鐵嘉義站搭台灣好行阿里山線公車（A線／B線），或嘉義縣在地公車 7302（往奮起湖）、7314（往達邦），都會行經${stop}，下車後民宿就在附近，可事先與我們聯繫接駁或步行前來。台灣好行班次較密集，在地公車班次較少但貼近在地生活作息，適合抓準時間搭乘。建議提前10分鐘等候。`,
+      `從嘉義火車站或高鐵嘉義站搭台灣好行阿里山線公車（A線／B線），或嘉義縣公車 7302 奮起湖線、7314 達邦線，都會行經${stop}，下車後民宿就在附近，可事先與我們聯繫接駁或步行前來。台灣好行班次較密集，奮起湖線、達邦線班次較少但貼近在地生活作息，適合抓準時間搭乘。建議提前10分鐘等候。`,
 
     railCardTitle: "搭阿里山森林鐵路",
     railCardBody: (stop: string) =>
@@ -243,7 +243,7 @@ export const UI: Record<Lang, UIDict> = {
 
     busSectionTitle: "公車班次查詢",
     busSectionBody: (stop: string) =>
-      `選擇起訖站即可，系統會自動整合台灣好行阿里山線（A／B線）與在地公車（7302 奮起湖線、7314 達邦線）四條路線，依現在時間列出接下來可搭乘的班次；已預設迄站為${stop}。`,
+      `選擇起訖站即可，系統會自動整合台灣好行阿里山線（A／B線）與 7302 奮起湖線、7314 達邦線四條路線，依現在時間列出接下來可搭乘的班次；已預設迄站為${stop}。`,
     busSectionWarn: (stop: string) =>
       `⚠ 提醒：選單中的「奮起湖」並非每一班 A／B 線公車都停靠（僅少數「經奮起湖」班次），若選「奮起湖」查無班次是正常現象；但${stop}幾乎每一班 A／B 線公車都有停靠，查詢結果較穩定。`,
 
@@ -255,7 +255,7 @@ export const UI: Record<Lang, UIDict> = {
     openInMaps: "在 Google 地圖上開啟",
     footer: "本頁班次與票價資料整理自台灣好行阿里山線、嘉義縣公共汽車管理處、阿里山林業鐵路及文化資產管理處官方公告（整理時間 2026-09-14），實際班次、票價如有調整請以官方公告為準。如發現資料有誤或已過時，歡迎與民宿聯繫告知，我們會盡快更新。",
 
-    finderIntro: "自動整合台灣好行阿里山線（A／B線）與在地公車（7302 奮起湖線、7314 達邦線）四條路線；選今天可依現在時間列出接下來可搭乘的班次，選其他日期則列出當天全部班次。",
+    finderIntro: "自動整合台灣好行阿里山線（A／B線）與 7302 奮起湖線、7314 達邦線四條路線；選今天可依現在時間列出接下來可搭乘的班次，選其他日期則列出當天全部班次。",
     originLabel: "起站",
     destLabel: "迄站",
     swapAria: "交換起訖站",
@@ -270,7 +270,7 @@ export const UI: Record<Lang, UIDict> = {
     fareHalf: "半票",
     fareUnknown: "票價請洽車上或官網",
     doneForToday: "今日班次已結束，請參考下方完整時刻表，或改選其他日期。",
-    localBusFootnote: "※ 7302／7314 為在地公車，官方僅公告起訖站發車時間與未提供票價；標示「換算估計」的到站時間是用台灣好行 B 線各站間的實際時間差推算，非官方逐站時刻。建議出發前用",
+    localBusFootnote: "※ 7302 奮起湖線、7314 達邦線官方僅公告起訖站發車時間與未提供票價；標示「換算估計」的到站時間是用台灣好行 B 線各站間的實際時間差推算，非官方逐站時刻。建議出發前用",
     localBusLiveLink: "嘉義縣公車即時動態",
     localBusFootnoteEnd: "查詢實際到站時間。",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "隱藏" : "顯示"}「${o} → ${d}」完整班次時刻表 (${n} 班)`,
@@ -281,8 +281,8 @@ export const UI: Record<Lang, UIDict> = {
     railDownTitle: "下山（阿里山／奮起湖 → 北門 → 嘉義）",
     transferTitle: (stop: string) => `搭小火車到奮起湖後，轉乘公車回${stop}`,
     transferBody: (stop: string, time: string) =>
-      `從奮起湖搭台灣好行公車或在地公車下山，即可在${stop}下車，步行前來民宿。以下只列出火車抵達奮起湖後（最早${time}）銜接得上的班次，發車較早、根本搭不上的班次已自動排除。`,
-    transferNone: "目前查無銜接得上的班次，請改以嘉義縣在地公車即時動態或計程車接駁。",
+      `從奮起湖搭台灣好行公車或奮起湖線公車下山，即可在${stop}下車，步行前來民宿。以下只列出火車抵達奮起湖後（最早${time}）銜接得上的班次，發車較早、根本搭不上的班次已自動排除。`,
+    transferNone: "目前查無銜接得上的班次，請改以嘉義縣公車即時動態或計程車接駁。",
     transferFootnote: "※ 標示「換算估計」的時間，是用台灣好行 B 線各站之間的實際時間差換算 7302 奮起湖線的到站時間，並非官方逐站時刻；其餘班次未標示者為官方時刻表。建議出發前用",
     transferFootnoteEnd: "再次確認。",
     fareRefTitle: "參考票價",
@@ -310,7 +310,7 @@ export const UI: Record<Lang, UIDict> = {
     heroKicker: "嘉义・番路・阿里山",
     heroTitle1: "茶香花园民宿",
     heroTitle2: "交通与班次查询",
-    heroP1: "茶香花园民宿邻近「龙头站」及「龙头坪站」。您可搭乘台湾好行阿里山线公车、在地公车（奋起湖线、达邦线），或搭乘阿里山森林铁路转乘公车前来。",
+    heroP1: "茶香花园民宿邻近「龙头站」及「龙头坪站」。您可搭乘台湾好行阿里山线公车、奋起湖线、达邦线公车，或搭乘阿里山森林铁路转乘公车前来。",
     heroP2: "于龙头站或龙头坪站下车后，步行约10～15分钟即可抵达民宿。以下提供即时班次查询，并可依照目前时间协助您确认是否来得及搭乘下一班车。",
     navBus: "搭乘公车",
     navRail: "搭乘主线小火车",
@@ -326,7 +326,7 @@ export const UI: Record<Lang, UIDict> = {
 
     busCardTitle: "搭乘公车",
     busCardBody: (stop: string) =>
-      `从嘉义火车站或高铁嘉义站搭台湾好行阿里山线公车（A线／B线），或嘉义县在地公车 7302（往奋起湖）、7314（往达邦），都会行经${stop}，下车后民宿就在附近，可事先与我们联系接驳或步行前来。台湾好行班次较密集，在地公车班次较少但贴近在地生活作息，适合抓准时间搭乘。建议提前10分钟等候。`,
+      `从嘉义火车站或高铁嘉义站搭台湾好行阿里山线公车（A线／B线），或嘉义县公车 7302 奋起湖线、7314 达邦线，都会行经${stop}，下车后民宿就在附近，可事先与我们联系接驳或步行前来。台湾好行班次较密集，奋起湖线、达邦线班次较少但贴近在地生活作息，适合抓准时间搭乘。建议提前10分钟等候。`,
 
     railCardTitle: "搭阿里山森林铁路",
     railCardBody: (stop: string) =>
@@ -334,7 +334,7 @@ export const UI: Record<Lang, UIDict> = {
 
     busSectionTitle: "公车班次查询",
     busSectionBody: (stop: string) =>
-      `选择起讫站即可，系统会自动整合台湾好行阿里山线（A／B线）与在地公车（7302 奋起湖线、7314 达邦线）四条路线，依现在时间列出接下来可搭乘的班次；已预设迄站为${stop}。`,
+      `选择起讫站即可，系统会自动整合台湾好行阿里山线（A／B线）与 7302 奋起湖线、7314 达邦线四条路线，依现在时间列出接下来可搭乘的班次；已预设迄站为${stop}。`,
     busSectionWarn: (stop: string) =>
       `⚠ 提醒：选单中的「奋起湖」并非每一班 A／B 线公车都停靠（仅少数「经奋起湖」班次），若选「奋起湖」查无班次是正常现象；但${stop}几乎每一班 A／B 线公车都有停靠，查询结果较稳定。`,
 
@@ -346,7 +346,7 @@ export const UI: Record<Lang, UIDict> = {
     openInMaps: "在 Google 地图上开启",
     footer: "本页班次与票价资料整理自台湾好行阿里山线、嘉义县公共汽车管理处、阿里山林业铁路及文化资产管理处官方公告（整理时间 2026-09-14），实际班次、票价如有调整请以官方公告为准。如发现资料有误或已过时，欢迎与民宿联系告知，我们会尽快更新。",
 
-    finderIntro: "自动整合台湾好行阿里山线（A／B线）与在地公车（7302 奋起湖线、7314 达邦线）四条路线；选今天可依现在时间列出接下来可搭乘的班次，选其他日期则列出当天全部班次。",
+    finderIntro: "自动整合台湾好行阿里山线（A／B线）与 7302 奋起湖线、7314 达邦线四条路线；选今天可依现在时间列出接下来可搭乘的班次，选其他日期则列出当天全部班次。",
     originLabel: "起站",
     destLabel: "迄站",
     swapAria: "交换起讫站",
@@ -361,7 +361,7 @@ export const UI: Record<Lang, UIDict> = {
     fareHalf: "半票",
     fareUnknown: "票价请洽车上或官网",
     doneForToday: "今日班次已结束，请参考下方完整时刻表，或改选其他日期。",
-    localBusFootnote: "※ 7302／7314 为在地公车，官方仅公告起讫站发车时间与未提供票价；标示「换算估计」的到站时间是用台湾好行 B 线各站间的实际时间差推算，非官方逐站时刻。建议出发前用",
+    localBusFootnote: "※ 7302 奋起湖线、7314 达邦线官方仅公告起讫站发车时间与未提供票价；标示「换算估计」的到站时间是用台湾好行 B 线各站间的实际时间差推算，非官方逐站时刻。建议出发前用",
     localBusLiveLink: "嘉义县公车即时动态",
     localBusFootnoteEnd: "查询实际到站时间。",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "隐藏" : "显示"}「${o} → ${d}」完整班次时刻表 (${n} 班)`,
@@ -372,8 +372,8 @@ export const UI: Record<Lang, UIDict> = {
     railDownTitle: "下山（阿里山／奋起湖 → 北门 → 嘉义）",
     transferTitle: (stop: string) => `搭小火车到奋起湖后，转乘公车回${stop}`,
     transferBody: (stop: string, time: string) =>
-      `从奋起湖搭台湾好行公车或在地公车下山，即可在${stop}下车，步行前来民宿。以下只列出火车抵达奋起湖后（最早${time}）衔接得上的班次，发车较早、根本搭不上的班次已自动排除。`,
-    transferNone: "目前查无衔接得上的班次，请改以嘉义县在地公车即时动态或计程车接驳。",
+      `从奋起湖搭台湾好行公车或奋起湖线公车下山，即可在${stop}下车，步行前来民宿。以下只列出火车抵达奋起湖后（最早${time}）衔接得上的班次，发车较早、根本搭不上的班次已自动排除。`,
+    transferNone: "目前查无衔接得上的班次，请改以嘉义县公车即时动态或计程车接驳。",
     transferFootnote: "※ 标示「换算估计」的时间，是用台湾好行 B 线各站之间的实际时间差换算 7302 奋起湖线的到站时间，并非官方逐站时刻；其余班次未标示者为官方时刻表。建议出发前用",
     transferFootnoteEnd: "再次确认。",
     fareRefTitle: "参考票价",
@@ -418,7 +418,7 @@ export const UI: Record<Lang, UIDict> = {
 
     busCardTitle: "Take the Bus",
     busCardBody: (stop: string) =>
-      `From Chiayi Railway Station or THSR Chiayi Station, take the Taiwan Tourist Shuttle Alishan Bus (Route A or B), or Chiayi County local buses 7302 (to Fenqihu) or 7314 (to Dabang) — all pass through ${stop}. The B&B is nearby after you get off; contact us ahead for a pickup, or walk over. The Tourist Shuttle runs more frequently, while local buses run less often but follow local schedules — plan your timing. We recommend arriving 10 minutes early.`,
+      `From Chiayi Railway Station or THSR Chiayi Station, take the Taiwan Tourist Shuttle Alishan Bus (Route A or B), or Chiayi County Bus Route 7302 Fenqihu Line or 7314 Dabang Line — all pass through ${stop}. The B&B is nearby after you get off; contact us ahead for a pickup, or walk over. The Tourist Shuttle runs more frequently, while the Fenqihu and Dabang Lines run less often but follow local schedules — plan your timing. We recommend arriving 10 minutes early.`,
 
     railCardTitle: "Take the Alishan Forest Railway",
     railCardBody: (stop: string) =>
@@ -426,7 +426,7 @@ export const UI: Record<Lang, UIDict> = {
 
     busSectionTitle: "Bus Schedule Finder",
     busSectionBody: (stop: string) =>
-      `Just pick your origin and destination — the system automatically combines the Taiwan Tourist Shuttle Alishan Bus (Routes A/B) with local buses (7302 Fenqihu Line, 7314 Dabang Line) and lists the next departures based on the current time. The destination defaults to ${stop}.`,
+      `Just pick your origin and destination — the system automatically combines the Taiwan Tourist Shuttle Alishan Bus (Routes A/B) with the 7302 Fenqihu Line and 7314 Dabang Line and lists the next departures based on the current time. The destination defaults to ${stop}.`,
     busSectionWarn: (stop: string) =>
       `⚠ Note: not every Route A/B bus stops at "Fenqihu" in the dropdown (only a few "via Fenqihu" departures do) — no results there is normal. But almost every Route A/B bus stops at ${stop}, so results are more consistent.`,
 
@@ -438,7 +438,7 @@ export const UI: Record<Lang, UIDict> = {
     openInMaps: "Open in Google Maps",
     footer: "Schedule and fare information on this page is compiled from official announcements by the Taiwan Tourist Shuttle Alishan Line, Chiayi County Bus Administration, and the Alishan Forest Railway and Cultural Heritage Office (compiled 2026-09-14). Actual schedules and fares are subject to official updates. If you notice anything outdated or incorrect, please let us know and we'll update it promptly.",
 
-    finderIntro: "Automatically combines the Taiwan Tourist Shuttle Alishan Line (Routes A/B) with local buses (7302 Fenqihu Line, 7314 Dabang Line). Pick today to see upcoming departures based on the current time, or pick another date to see the full day's schedule.",
+    finderIntro: "Automatically combines the Taiwan Tourist Shuttle Alishan Line (Routes A/B) with the 7302 Fenqihu Line and 7314 Dabang Line. Pick today to see upcoming departures based on the current time, or pick another date to see the full day's schedule.",
     originLabel: "From",
     destLabel: "To",
     swapAria: "Swap origin and destination",
@@ -453,7 +453,7 @@ export const UI: Record<Lang, UIDict> = {
     fareHalf: "Half fare",
     fareUnknown: "Ask on board or check the official site",
     doneForToday: "No more departures today — see the full timetable below, or pick another date.",
-    localBusFootnote: "※ Routes 7302/7314 are local buses; the operator only publishes terminus departure times and no fares. Arrival times marked \"(estimated)\" are calculated from the actual time gaps between stops on the Tourist Shuttle Route B — not an official per-stop timetable. Please check with",
+    localBusFootnote: "※ For the 7302 Fenqihu Line and 7314 Dabang Line, the operator only publishes terminus departure times and no fares. Arrival times marked \"(estimated)\" are calculated from the actual time gaps between stops on the Tourist Shuttle Route B — not an official per-stop timetable. Please check with",
     localBusLiveLink: "Chiayi County Bus real-time tracking",
     localBusFootnoteEnd: "before you go.",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "Hide" : "Show"} the full timetable for "${o} → ${d}" (${n} trips)`,
@@ -464,7 +464,7 @@ export const UI: Record<Lang, UIDict> = {
     railDownTitle: "Downhill (Alishan/Fenqihu → Beimen → Chiayi)",
     transferTitle: (stop: string) => `Taking the train to Fenqihu? Transfer to a bus back to ${stop}`,
     transferBody: (stop: string, time: string) =>
-      `From Fenqihu, take a Tourist Shuttle or local bus downhill and get off at ${stop} — it's a short walk from there to the B&B. Only departures that connect after the train's earliest arrival at Fenqihu (${time}) are listed; earlier buses you couldn't catch are excluded automatically.`,
+      `From Fenqihu, take a Tourist Shuttle bus or the Fenqihu Line bus downhill and get off at ${stop} — it's a short walk from there to the B&B. Only departures that connect after the train's earliest arrival at Fenqihu (${time}) are listed; earlier buses you couldn't catch are excluded automatically.`,
     transferNone: "No connecting departures found right now — please use Chiayi County Bus real-time tracking or a taxi transfer instead.",
     transferFootnote: "※ Times marked \"(estimated)\" are calculated for Route 7302's Fenqihu Line using the actual time gaps between stops on Tourist Shuttle Route B — not an official per-stop timetable; unmarked departures are from the official timetable. Please confirm with",
     transferFootnoteEnd: "before you go.",
