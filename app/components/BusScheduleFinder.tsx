@@ -2,7 +2,6 @@
 
 import { useMemo, useState, useEffect } from "react";
 import { HOMESTAY_STOP } from "../lib/bus-data";
-import { LOCAL_BUS_LIVE_URL } from "../lib/local-bus-data";
 import { findUnifiedTrips, unifiedStopNames, minutesToNowLabel, dayTypeOf, UnifiedTrip } from "../lib/schedule-utils";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -177,21 +176,6 @@ export default function BusScheduleFinder() {
           <p className="rounded-lg bg-paper-dim px-4 py-3 text-sm text-ink-soft">{t.doneForToday}</p>
         )}
       </div>
-
-      {allTrips.some((tr) => tr.fareFull == null) && (
-        <p className="mt-3 text-xs text-ink-soft">
-          {t.localBusFootnote}
-          <a
-            href={LOCAL_BUS_LIVE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-1 text-pine hover:underline"
-          >
-            {t.localBusLiveLink}
-          </a>
-          {t.localBusFootnoteEnd}
-        </p>
-      )}
 
       {/* 完整時刻表（僅今天模式需要，其他日期已直接顯示全部） */}
       {isToday && (

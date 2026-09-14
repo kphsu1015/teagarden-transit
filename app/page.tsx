@@ -60,7 +60,7 @@ export default function Home() {
             </a>
             <a
               href="#rail"
-              className="inline-flex items-center gap-2 rounded-full bg-red-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-red-700"
+              className="inline-flex items-center gap-2 rounded-full bg-rose-200 px-6 py-3 text-sm font-semibold text-rose-900 shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-rose-300"
             >
               <TrainIcon className="h-4 w-4" />
               {t.navRail}
@@ -107,7 +107,7 @@ export default function Home() {
         <div className="mt-8 grid gap-5">
           <div className="rounded-2xl border border-line bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pine text-paper">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-sky-100 text-sky-900">
                 <CarIcon />
               </span>
               <p className="font-serif text-lg text-ink">{t.driveTitle}</p>
@@ -141,7 +141,7 @@ export default function Home() {
 
           <div className="rounded-2xl border border-line bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pine text-paper">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold text-pine-dark">
                 <BusIcon />
               </span>
               <p className="font-serif text-lg text-ink">{t.busCardTitle}</p>
@@ -151,7 +151,7 @@ export default function Home() {
 
           <div className="rounded-2xl border border-line bg-white p-6 shadow-sm transition-shadow hover:shadow-md">
             <div className="flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pine text-paper">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-rose-200 text-rose-900">
                 <TrainIcon />
               </span>
               <p className="font-serif text-lg text-ink">{t.railCardTitle}</p>

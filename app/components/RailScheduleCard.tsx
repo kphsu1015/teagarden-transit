@@ -3,7 +3,6 @@
 import { RAIL_UPWARD, RAIL_DOWNWARD, RAIL_FARES, FENQIHU_ARRIVALS } from "../lib/rail-data";
 import type { RailTrip } from "../lib/rail-data";
 import { HOMESTAY_STOP } from "../lib/bus-data";
-import { LOCAL_BUS_LIVE_URL } from "../lib/local-bus-data";
 import { findUnifiedTrips, timeToMinutes } from "../lib/schedule-utils";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -79,7 +78,6 @@ export default function RailScheduleCard() {
 
       <div className="mt-6 border-t border-paper-dim pt-4">
         <h3 className="mb-2 text-sm font-semibold tracking-wide text-ink-soft">{t.transferTitle(sn(HOMESTAY_STOP))}</h3>
-        <p className="mb-3 text-xs text-ink-soft">{t.transferBody(sn(HOMESTAY_STOP), FENQIHU_ARRIVALS[0].time)}</p>
         {TRANSFER_TRIPS.length > 0 ? (
           <ul className="divide-y divide-paper-dim">
             {TRANSFER_TRIPS.map((tr, i) => (
@@ -97,18 +95,6 @@ export default function RailScheduleCard() {
         ) : (
           <p className="text-sm text-ink-soft">{t.transferNone}</p>
         )}
-        <p className="mt-3 text-xs text-ink-soft">
-          {t.transferFootnote}
-          <a
-            href={LOCAL_BUS_LIVE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="ml-1 text-pine hover:underline"
-          >
-            {t.localBusLiveLink}
-          </a>
-          {t.transferFootnoteEnd}
-        </p>
       </div>
 
       <div className="mt-6 border-t border-paper-dim pt-4">

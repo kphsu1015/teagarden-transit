@@ -45,5 +45,3 @@ export const LOCAL_ROUTES: LocalBusRoute[] = [
     ],
   },
 ];
-
-export const LOCAL_BUS_LIVE_URL = "https://chiayiibus.cyhg.gov.tw/DynamicBusQuery";

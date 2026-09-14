@@ -34,7 +34,7 @@ export default function DriveButton({ mapUrl }: { mapUrl: string }) {
       <button
         type="button"
         onClick={() => setOpenState(true)}
-        className="inline-flex items-center gap-2 rounded-full bg-sky-200 px-6 py-3 text-sm font-semibold text-pine-dark shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-sky-300"
+        className="inline-flex items-center gap-2 rounded-full bg-sky-100 px-6 py-3 text-sm font-semibold text-sky-900 shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-sky-200"
       >
         <CarIcon className="h-4 w-4" />
         {t.driveBtn}

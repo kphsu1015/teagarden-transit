@@ -179,9 +179,6 @@ export interface UIDict {
   fareHalf: string;
   fareUnknown: string;
   doneForToday: string;
-  localBusFootnote: string;
-  localBusLiveLink: string;
-  localBusFootnoteEnd: string;
   showFullTimetable: (show: boolean, o: string, d: string, n: number) => string;
 
   railDisclaimer1: string;
@@ -189,10 +186,7 @@ export interface UIDict {
   railUpTitle: string;
   railDownTitle: string;
   transferTitle: (stop: string) => string;
-  transferBody: (stop: string, time: string) => string;
   transferNone: string;
-  transferFootnote: string;
-  transferFootnoteEnd: string;
   fareRefTitle: string;
   officialTimetable: string;
   onlineBooking: string;
@@ -270,9 +264,6 @@ export const UI: Record<Lang, UIDict> = {
     fareHalf: "半票",
     fareUnknown: "票價請洽車上或官網",
     doneForToday: "今日班次已結束，請參考下方完整時刻表，或改選其他日期。",
-    localBusFootnote: "※ 7302 奮起湖線、7314 達邦線官方僅公告起訖站發車時間與未提供票價；標示「換算估計」的到站時間是用台灣好行 B 線各站間的實際時間差推算，非官方逐站時刻。建議出發前用",
-    localBusLiveLink: "嘉義縣公車即時動態",
-    localBusFootnoteEnd: "查詢實際到站時間。",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "隱藏" : "顯示"}「${o} → ${d}」完整班次時刻表 (${n} 班)`,
 
     railDisclaimer1: "阿里山森林鐵路目前每日班次較少，且易受養護工程、天候影響調整或停駛。以下時刻整理自官方公告（2025/1/10 生效版本），僅供行程參考，",
@@ -280,11 +271,7 @@ export const UI: Record<Lang, UIDict> = {
     railUpTitle: "上山（嘉義／北門 → 奮起湖 → 阿里山）",
     railDownTitle: "下山（阿里山／奮起湖 → 北門 → 嘉義）",
     transferTitle: (stop: string) => `搭小火車到奮起湖後，轉乘公車回${stop}`,
-    transferBody: (stop: string, time: string) =>
-      `從奮起湖搭台灣好行公車或奮起湖線公車下山，即可在${stop}下車，步行前來民宿。以下只列出火車抵達奮起湖後（最早${time}）銜接得上的班次，發車較早、根本搭不上的班次已自動排除。`,
     transferNone: "目前查無銜接得上的班次，請改以嘉義縣公車即時動態或計程車接駁。",
-    transferFootnote: "※ 標示「換算估計」的時間，是用台灣好行 B 線各站之間的實際時間差換算 7302 奮起湖線的到站時間，並非官方逐站時刻；其餘班次未標示者為官方時刻表。建議出發前用",
-    transferFootnoteEnd: "再次確認。",
     fareRefTitle: "參考票價",
     officialTimetable: "官方時刻表及票價",
     onlineBooking: "線上訂票系統",
@@ -361,9 +348,6 @@ export const UI: Record<Lang, UIDict> = {
     fareHalf: "半票",
     fareUnknown: "票价请洽车上或官网",
     doneForToday: "今日班次已结束，请参考下方完整时刻表，或改选其他日期。",
-    localBusFootnote: "※ 7302 奋起湖线、7314 达邦线官方仅公告起讫站发车时间与未提供票价；标示「换算估计」的到站时间是用台湾好行 B 线各站间的实际时间差推算，非官方逐站时刻。建议出发前用",
-    localBusLiveLink: "嘉义县公车即时动态",
-    localBusFootnoteEnd: "查询实际到站时间。",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "隐藏" : "显示"}「${o} → ${d}」完整班次时刻表 (${n} 班)`,
 
     railDisclaimer1: "阿里山森林铁路目前每日班次较少，且易受养护工程、天候影响调整或停驶。以下时刻整理自官方公告（2025/1/10 生效版本），仅供行程参考，",
@@ -371,11 +355,7 @@ export const UI: Record<Lang, UIDict> = {
     railUpTitle: "上山（嘉义／北门 → 奋起湖 → 阿里山）",
     railDownTitle: "下山（阿里山／奋起湖 → 北门 → 嘉义）",
     transferTitle: (stop: string) => `搭小火车到奋起湖后，转乘公车回${stop}`,
-    transferBody: (stop: string, time: string) =>
-      `从奋起湖搭台湾好行公车或奋起湖线公车下山，即可在${stop}下车，步行前来民宿。以下只列出火车抵达奋起湖后（最早${time}）衔接得上的班次，发车较早、根本搭不上的班次已自动排除。`,
     transferNone: "目前查无衔接得上的班次，请改以嘉义县公车即时动态或计程车接驳。",
-    transferFootnote: "※ 标示「换算估计」的时间，是用台湾好行 B 线各站之间的实际时间差换算 7302 奋起湖线的到站时间，并非官方逐站时刻；其余班次未标示者为官方时刻表。建议出发前用",
-    transferFootnoteEnd: "再次确认。",
     fareRefTitle: "参考票价",
     officialTimetable: "官方时刻表及票价",
     onlineBooking: "线上订票系统",
@@ -453,9 +433,6 @@ export const UI: Record<Lang, UIDict> = {
     fareHalf: "Half fare",
     fareUnknown: "Ask on board or check the official site",
     doneForToday: "No more departures today — see the full timetable below, or pick another date.",
-    localBusFootnote: "※ For the 7302 Fenqihu Line and 7314 Dabang Line, the operator only publishes terminus departure times and no fares. Arrival times marked \"(estimated)\" are calculated from the actual time gaps between stops on the Tourist Shuttle Route B — not an official per-stop timetable. Please check with",
-    localBusLiveLink: "Chiayi County Bus real-time tracking",
-    localBusFootnoteEnd: "before you go.",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "Hide" : "Show"} the full timetable for "${o} → ${d}" (${n} trips)`,
 
     railDisclaimer1: "The Alishan Forest Railway currently runs few daily departures and is subject to change or suspension due to maintenance or weather. The schedule below is compiled from the official announcement (effective 2025/1/10) for reference only —",
@@ -463,11 +440,7 @@ export const UI: Record<Lang, UIDict> = {
     railUpTitle: "Uphill (Chiayi/Beimen → Fenqihu → Alishan)",
     railDownTitle: "Downhill (Alishan/Fenqihu → Beimen → Chiayi)",
     transferTitle: (stop: string) => `Taking the train to Fenqihu? Transfer to a bus back to ${stop}`,
-    transferBody: (stop: string, time: string) =>
-      `From Fenqihu, take a Tourist Shuttle bus or the Fenqihu Line bus downhill and get off at ${stop} — it's a short walk from there to the B&B. Only departures that connect after the train's earliest arrival at Fenqihu (${time}) are listed; earlier buses you couldn't catch are excluded automatically.`,
     transferNone: "No connecting departures found right now — please use Chiayi County Bus real-time tracking or a taxi transfer instead.",
-    transferFootnote: "※ Times marked \"(estimated)\" are calculated for Route 7302's Fenqihu Line using the actual time gaps between stops on Tourist Shuttle Route B — not an official per-stop timetable; unmarked departures are from the official timetable. Please confirm with",
-    transferFootnoteEnd: "before you go.",
     fareRefTitle: "Reference Fares",
     officialTimetable: "Official timetable & fares",
     onlineBooking: "Online booking system",
