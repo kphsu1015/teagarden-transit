@@ -1,26 +1,55 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: #faf5e9;
+  --color-paper-dim: #f1e9d6;
+  --color-ink: #22301f;
+  --color-ink-soft: #59614f;
+  --color-pine: #2f5233;
+  --color-pine-dark: #1e3a22;
+  --color-gold: #b8863a;
+  --color-gold-soft: #d8b876;
+  --color-line: #e0d6ba;
+
+  --font-sans: var(--font-noto-sans-tc);
+  --font-serif: var(--font-noto-serif-tc);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+:root {
+  --background: #faf5e9;
+  --foreground: #22301f;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-noto-sans-tc), "PingFang TC", "Microsoft JhengHei", "Hiragino Sans GB", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.font-serif {
+  font-family: var(--font-noto-serif-tc), "Songti TC", "Source Han Serif TC", "Noto Serif CJK TC", PMingLiU, MingLiU,
+    serif;
+  font-feature-settings: "palt";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::selection {
+  background: #2f5233;
+  color: #faf5e9;
+}
+
+/* 淡淡紙張顆粒感，讓大面積米色背景不會過於平板 */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
