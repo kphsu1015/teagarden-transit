@@ -137,6 +137,8 @@ export interface UIDict {
   heroP2: string;
   navBus: string;
   navRail: string;
+  navDrive: string;
+  backHome: string;
 
   howToTitle: string;
   driveTitle: string;
@@ -195,6 +197,7 @@ export interface UIDict {
   driveModalTitle: string;
   driveCaption1: string;
   driveCaption2: string;
+  driveCaption3: string;
   driveModalDirections: string;
   driveModalGo: string;
   driveModalClose: string;
@@ -202,10 +205,14 @@ export interface UIDict {
   eyebrowHowTo: string;
   eyebrowBus: string;
   eyebrowRail: string;
+  eyebrowDrive: string;
   eyebrowContact: string;
   featureRoutes: string;
   featureWalk: string;
   featureRail: string;
+
+  homeIntroTitle: string;
+  homeCardCta: string;
 }
 
 export const UI: Record<Lang, UIDict> = {
@@ -217,6 +224,8 @@ export const UI: Record<Lang, UIDict> = {
     heroP2: "於龍頭站或龍頭坪站下車後，步行約10～15分鐘即可抵達民宿。以下提供即時班次查詢，並可依照目前時間協助您確認是否來得及搭乘下一班車。",
     navBus: "搭乘公車",
     navRail: "搭乘主線小火車",
+    navDrive: "開車",
+    backHome: "回首頁",
 
     howToTitle: "怎麼來民宿",
     driveTitle: "自行開車",
@@ -280,6 +289,7 @@ export const UI: Record<Lang, UIDict> = {
     driveModalTitle: "開車前請注意",
     driveCaption1: "請勿走左側嘉130鄉道公田路段(路況不佳)",
     driveCaption2: "勿在57.6K左轉英迪格酒店",
+    driveCaption3: "57.9K處左側斜坡往上200公尺即可到達民宿",
     driveModalDirections: "山區不建議使用導航系統，請依國道三號 → 下中埔交流道 → 阿里山公路(台18線)往阿里山方向 → 龍頭 → 57.9km處左上方小路的路線前來。",
     driveModalGo: "知道了，前往 Google 地圖",
     driveModalClose: "關閉",
@@ -287,10 +297,14 @@ export const UI: Record<Lang, UIDict> = {
     eyebrowHowTo: "交通指南",
     eyebrowBus: "即時查詢",
     eyebrowRail: "森林鐵路",
+    eyebrowDrive: "自行開車",
     eyebrowContact: "歡迎光臨",
     featureRoutes: "4 條路線可達",
     featureWalk: "下車步行10–15分鐘",
     featureRail: "可轉乘阿里山森林鐵路",
+
+    homeIntroTitle: "請選擇您的交通方式",
+    homeCardCta: "查看詳情",
   },
 
   "zh-CN": {
@@ -301,6 +315,8 @@ export const UI: Record<Lang, UIDict> = {
     heroP2: "于龙头站或龙头坪站下车后，步行约10～15分钟即可抵达民宿。以下提供即时班次查询，并可依照目前时间协助您确认是否来得及搭乘下一班车。",
     navBus: "搭乘公车",
     navRail: "搭乘主线小火车",
+    navDrive: "开车",
+    backHome: "回首页",
 
     howToTitle: "怎么来民宿",
     driveTitle: "自行开车",
@@ -364,6 +380,7 @@ export const UI: Record<Lang, UIDict> = {
     driveModalTitle: "开车前请注意",
     driveCaption1: "请勿走左侧嘉130乡道公田路段(路况不佳)",
     driveCaption2: "勿在57.6K左转英迪格酒店",
+    driveCaption3: "57.9K处左侧斜坡往上200公尺即可到达民宿",
     driveModalDirections: "山区不建议使用导航系统，请依国道三号 → 下中埔交流道 → 阿里山公路(台18线)往阿里山方向 → 龙头 → 57.9km处左上方小路的路线前来。",
     driveModalGo: "知道了，前往 Google 地图",
     driveModalClose: "关闭",
@@ -371,10 +388,14 @@ export const UI: Record<Lang, UIDict> = {
     eyebrowHowTo: "交通指南",
     eyebrowBus: "即时查询",
     eyebrowRail: "森林铁路",
+    eyebrowDrive: "自行开车",
     eyebrowContact: "欢迎光临",
     featureRoutes: "4 条路线可达",
     featureWalk: "下车步行10–15分钟",
     featureRail: "可转乘阿里山森林铁路",
+
+    homeIntroTitle: "请选择您的交通方式",
+    homeCardCta: "查看详情",
   },
 
   en: {
@@ -386,6 +407,8 @@ export const UI: Record<Lang, UIDict> = {
     heroP2: "After getting off at Longtou Station or Longtouping Station, it's about a 10–15 minute walk to the B&B. Below you'll find a live schedule finder that checks whether you can still catch the next departure.",
     navBus: "Take the Bus",
     navRail: "Take the Main-Line Train",
+    navDrive: "Driving",
+    backHome: "Back to Home",
 
     howToTitle: "How to Get Here",
     driveTitle: "Driving",
@@ -449,6 +472,7 @@ export const UI: Record<Lang, UIDict> = {
     driveModalTitle: "Before You Drive",
     driveCaption1: "Do not take County Road Jia-130 through Gongtian (poor road conditions)",
     driveCaption2: "Do not turn left into Hotel Indigo at 57.6K",
+    driveCaption3: "At 57.9K, take the slope on the left uphill ~200m to reach the B&B",
     driveModalDirections: "GPS navigation is not recommended in this mountain area. Please follow: National Freeway No.3 → Zhongpu Interchange → Alishan Highway (Route 18) toward Alishan → Longtou → the small road on the upper-left at about 57.9km.",
     driveModalGo: "Got it, open Google Maps",
     driveModalClose: "Close",
@@ -456,9 +480,13 @@ export const UI: Record<Lang, UIDict> = {
     eyebrowHowTo: "Getting Here",
     eyebrowBus: "Live Lookup",
     eyebrowRail: "Forest Railway",
+    eyebrowDrive: "Driving",
     eyebrowContact: "Welcome",
     featureRoutes: "4 routes reach the B&B",
     featureWalk: "10–15 min walk from the stop",
     featureRail: "Forest Railway transfer available",
+
+    homeIntroTitle: "Choose how you're getting here",
+    homeCardCta: "View details",
   },
 };

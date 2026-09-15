@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useLanguage } from "../context/LanguageContext";
 
 export default function Footer() {
@@ -14,15 +15,18 @@ export default function Footer() {
             <p className="mt-2 max-w-xs text-sm leading-6 text-paper/60">{t.heroKicker}</p>
           </div>
           <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <a href="#bus" className="text-paper/80 hover:text-gold-soft">
+            <Link href="/bus" className="text-paper/80 hover:text-gold-soft">
               {t.navBus}
-            </a>
-            <a href="#rail" className="text-paper/80 hover:text-gold-soft">
+            </Link>
+            <Link href="/rail" className="text-paper/80 hover:text-gold-soft">
               {t.navRail}
-            </a>
-            <a href="#top" className="text-paper/80 hover:text-gold-soft">
-              ↑
-            </a>
+            </Link>
+            <Link href="/drive" className="text-paper/80 hover:text-gold-soft">
+              {t.navDrive}
+            </Link>
+            <Link href="/" className="text-paper/80 hover:text-gold-soft">
+              {t.backHome}
+            </Link>
           </nav>
         </div>
         <div className="mt-8 border-t border-white/10 pt-6">
