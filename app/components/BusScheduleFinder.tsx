@@ -33,10 +33,18 @@ export default function BusScheduleFinder() {
   const [origin, setOrigin] = useState("嘉義火車站");
   const [dest, setDest] = useState(HOMESTAY_STOP);
   const [showAll, setShowAll] = useState(false);
-  const [now, setNow] = useState(() => getTaipeiNow());
-  const [date, setDate] = useState(now.dateISO);
+  // 「現在時間」和依日期篩選的班次都跟實際掛鐘時間有關，SSR 與 CSR 首次渲染的時間點不可能完全一致，
+  // 故意在掛載後才計算並顯示，避免 hydration mismatch（React error #418）
+  const [mounted, setMounted] = useState(false);
+  const [now, setNow] = useState({ minutes: 0, label: "--:--", dateISO: "" });
+  const [date, setDate] = useState("");
 
   useEffect(() => {
+    const initial = getTaipeiNow();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setNow(initial);
+    setDate(initial.dateISO);
+    setMounted(true);
     const id = setInterval(() => setNow(getTaipeiNow()), 30000);
     return () => clearInterval(id);
   }, []);
@@ -57,6 +65,15 @@ export default function BusScheduleFinder() {
   function swap() {
     setOrigin(dest);
     setDest(origin);
+  }
+
+  if (!mounted) {
+    return (
+      <div className="rounded-2xl border border-line bg-white p-5 shadow-sm md:p-8">
+        <p className="mb-4 text-xs text-ink-soft">{t.finderIntro}</p>
+        <div className="h-64 animate-pulse rounded-lg bg-paper-dim" />
+      </div>
+    );
   }
 
   return (
@@ -118,9 +135,7 @@ export default function BusScheduleFinder() {
       {/* 現在時間 */}
       <p className="mt-4 text-sm text-ink-soft">
         {t.nowLabelPrefix}{" "}
-        <span className="font-mono font-medium text-ink" suppressHydrationWarning>
-          {now.label}
-        </span>
+        <span className="font-mono font-medium text-ink">{now.label}</span>
         {"　"}
         {isToday ? t.showingToday : t.showingOtherDate(date, dayType === "weekend")}
       </p>

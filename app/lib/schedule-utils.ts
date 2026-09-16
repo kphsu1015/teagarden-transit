@@ -146,9 +146,15 @@ export interface UnifiedTrip {
 
 export type DayType = "weekday" | "weekend";
 
-/** 由 YYYY-MM-DD 判斷平日／假日（僅以週六日判斷，未計入國定假日） */
+/**
+ * 由 YYYY-MM-DD 判斷平日／假日（僅以週六日判斷，未計入國定假日）。
+ * 用 Date.UTC 建構、getUTCDay 讀取，不經過主機當地時區轉換，
+ * 避免執行環境（伺服器／瀏覽器）時區不同造成判斷結果不一致。
+ */
 export function dayTypeOf(isoDate: string): DayType {
-  const day = new Date(`${isoDate}T00:00:00`).getDay();
+  const [y, m, d] = isoDate.split("-").map(Number);
+  if (!y || !m || !d) return "weekday";
+  const day = new Date(Date.UTC(y, m - 1, d)).getUTCDay();
   return day === 0 || day === 6 ? "weekend" : "weekday";
 }
 

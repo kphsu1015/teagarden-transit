@@ -11,7 +11,6 @@ async function getTripMap(): Promise<MapViewData | null> {
   if (!doc) return null;
 
   return {
-    title: doc.title,
     imageUrl: doc.imageUrl,
   };
 }

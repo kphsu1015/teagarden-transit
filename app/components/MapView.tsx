@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../context/LanguageContext";
 
 export interface MapViewData {
-  title: string;
   imageUrl: string;
 }
 
@@ -94,14 +93,14 @@ export default function MapView({ tripMap }: { tripMap: MapViewData | null }) {
 
   return (
     <section className="mx-auto max-w-4xl px-6 py-12 md:py-16">
-      <h1 className="font-serif text-3xl text-ink">{tripMap.title}</h1>
+      <h1 className="font-serif text-3xl text-ink">{t.mapPageTitle}</h1>
       <p className="mt-2 text-xs text-ink-soft/70">{t.mapSource}</p>
 
       <div className="mt-6 w-full overflow-hidden rounded-xl border border-line">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={tripMap.imageUrl}
-          alt={tripMap.title}
+          alt={t.mapPageTitle}
           onClick={() => setZoomLevel(1)}
           className="block h-auto w-full cursor-zoom-in"
         />
@@ -132,7 +131,7 @@ export default function MapView({ tripMap }: { tripMap: MapViewData | null }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={tripMap.imageUrl}
-              alt={tripMap.title}
+              alt={t.mapPageTitle}
               draggable={false}
               onClick={() => {
                 if (zoomLevel === 1) setZoomLevel(2);
