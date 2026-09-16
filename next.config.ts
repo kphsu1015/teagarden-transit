@@ -1,8 +1,15 @@
 import type { NextConfig } from "next";
 
+// Next.js dev mode (Fast Refresh / debugging) needs eval(); production never uses it,
+// so we only relax script-src for that one directive outside production.
+const scriptSrc =
+  process.env.NODE_ENV === "production"
+    ? "script-src 'self' 'unsafe-inline'"
+    : "script-src 'self' 'unsafe-inline' 'unsafe-eval'";
+
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  scriptSrc,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: https:",
   "font-src 'self' data:",

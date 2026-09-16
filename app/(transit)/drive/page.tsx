@@ -25,6 +25,17 @@ function WarningPhoto({ src, alt, caption }: { src: string; alt: string; caption
   );
 }
 
+function InfoPhoto({ src, alt, caption }: { src: string; alt: string; caption: string }) {
+  return (
+    <figure className="relative aspect-[4/3] overflow-hidden rounded-xl">
+      <Image src={src} alt={alt} fill sizes="(max-width: 640px) 100vw, 400px" className="object-cover" />
+      <figcaption className="absolute inset-x-0 bottom-0 bg-pine-dark/85 px-2 py-1.5 text-xs font-medium leading-4 tracking-tight text-white">
+        {caption}
+      </figcaption>
+    </figure>
+  );
+}
+
 export default function DrivePage() {
   const { t, lang } = useLanguage();
   const address = ADDRESS[lang];
@@ -40,6 +51,18 @@ export default function DrivePage() {
       </p>
       <p className="mt-2 text-sm leading-6 text-ink-soft">{t.driveDirections}</p>
       <p className="mt-3 rounded-lg bg-amber-50 px-4 py-2 text-sm text-amber-800">{t.driveWarning}</p>
+
+      <h2 className="mt-8 font-serif text-lg text-ink">{t.driveUpTitle}</h2>
+
+      <p className="mt-4 text-sm font-medium text-ink-soft">{t.driveVideosLabel}</p>
+      <a
+        href="https://reurl.cc/969l0d"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-1 inline-block text-sm text-pine underline decoration-gold-soft decoration-2 underline-offset-4 hover:text-pine-dark"
+      >
+        {t.driveVideo1}
+      </a>
 
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         <WarningPhoto
@@ -59,24 +82,29 @@ export default function DrivePage() {
         />
       </div>
 
-      <p className="mt-6 text-sm font-medium text-ink-soft">{t.driveVideosLabel}</p>
-      <div className="mt-1 flex flex-wrap gap-x-5 gap-y-1 text-sm">
-        <a
-          href="https://reurl.cc/969l0d"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-pine underline decoration-gold-soft decoration-2 underline-offset-4 hover:text-pine-dark"
-        >
-          {t.driveVideo1}
-        </a>
-        <a
-          href="https://reurl.cc/r3Vekx"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-pine underline decoration-gold-soft decoration-2 underline-offset-4 hover:text-pine-dark"
-        >
-          {t.driveVideo2}
-        </a>
+      <h2 className="mt-8 font-serif text-lg text-ink">{t.driveReturnTitle}</h2>
+
+      <p className="mt-4 text-sm font-medium text-ink-soft">{t.driveVideosLabel}</p>
+      <a
+        href="https://reurl.cc/r3Vekx"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-1 inline-block text-sm text-pine underline decoration-gold-soft decoration-2 underline-offset-4 hover:text-pine-dark"
+      >
+        {t.driveVideo2}
+      </a>
+
+      <div className="mt-4 grid gap-4 sm:grid-cols-2">
+        <InfoPhoto
+          src="/images/drive-return-entrance.jpg"
+          alt="Tea Garden B&B entrance sign when returning from Alishan or Fenqihu"
+          caption={t.driveReturnPhoto1Caption}
+        />
+        <InfoPhoto
+          src="/images/drive-return-slope.jpg"
+          alt="Slope leading up to the B&B, about 200m from the entrance"
+          caption={t.driveReturnPhoto2Caption}
+        />
       </div>
 
       <a

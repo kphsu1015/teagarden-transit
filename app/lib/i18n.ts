@@ -146,9 +146,13 @@ export interface UIDict {
   driveAddressLabel: string;
   driveDirections: string;
   driveWarning: string;
+  driveUpTitle: string;
+  driveReturnTitle: string;
   driveVideosLabel: string;
   driveVideo1: string;
   driveVideo2: string;
+  driveReturnPhoto1Caption: string;
+  driveReturnPhoto2Caption: string;
 
   busCardTitle: string;
   busCardBody: (stop: string) => string;
@@ -239,9 +243,13 @@ export const UI: Record<Lang, UIDict> = {
     driveAddressLabel: "地址：",
     driveDirections: "國道三號 → 下中埔交流道 → 沿阿里山公路(台18線)往阿里山方向 → 龍頭 → 約抵57.9km處左上方小路約200公尺即可抵達。",
     driveWarning: "⚠ 山區不建議使用導航系統，請勿走嘉130鄉道公田路段，也勿在57.6K左轉英迪格酒店。",
+    driveUpTitle: "從嘉義上山方向",
+    driveReturnTitle: "從阿里山、奮起湖、石桌回程下山方向",
     driveVideosLabel: "參考行車指引影片：",
     driveVideo1: "抵達民宿前的影片",
     driveVideo2: "阿里山、奮起湖、石桌、回程方向",
+    driveReturnPhoto1Caption: "從阿里山或奮起湖返回民宿的入口",
+    driveReturnPhoto2Caption: "斜坡繼續往上開約200公尺即可到達民宿",
 
     busCardTitle: "搭乘公車",
     busCardBody: (stop: string) =>
@@ -336,9 +344,13 @@ export const UI: Record<Lang, UIDict> = {
     driveAddressLabel: "地址：",
     driveDirections: "国道三号 → 下中埔交流道 → 沿阿里山公路(台18线)往阿里山方向 → 龙头 → 约抵57.9km处左上方小路约200公尺即可抵达。",
     driveWarning: "⚠ 山区不建议使用导航系统，请勿走嘉130乡道公田路段，也勿在57.6K左转英迪格酒店。",
+    driveUpTitle: "从嘉义上山方向",
+    driveReturnTitle: "从阿里山、奋起湖、石桌回程下山方向",
     driveVideosLabel: "参考行车指引影片：",
     driveVideo1: "抵达民宿前的影片",
     driveVideo2: "阿里山、奋起湖、石桌、回程方向",
+    driveReturnPhoto1Caption: "从阿里山或奋起湖返回民宿的入口",
+    driveReturnPhoto2Caption: "斜坡继续往上开约200公尺即可到达民宿",
 
     busCardTitle: "搭乘公车",
     busCardBody: (stop: string) =>
@@ -434,9 +446,13 @@ export const UI: Record<Lang, UIDict> = {
     driveAddressLabel: "Address: ",
     driveDirections: "National Freeway No.3 → Zhongpu Interchange → Alishan Highway (Route 18) toward Alishan → Longtou → at about the 57.9km mark, a small road on the upper-left leads ~200m to the B&B.",
     driveWarning: "⚠ GPS navigation is not recommended in this mountain area. Do not take County Road Jia-130 through Gongtian, and do not turn left into Hotel Indigo at the 57.6K mark.",
+    driveUpTitle: "Uphill Route from Chiayi",
+    driveReturnTitle: "Downhill Return Route from Alishan / Fenqihu / Shizhuo",
     driveVideosLabel: "Reference driving guide videos:",
     driveVideo1: "Video: approaching the B&B",
     driveVideo2: "Alishan / Fenqihu / Shizhuo / return route",
+    driveReturnPhoto1Caption: "The entrance to the B&B when returning from Alishan or Fenqihu",
+    driveReturnPhoto2Caption: "Continue up the slope about 200m to reach the B&B",
 
     busCardTitle: "Take the Bus",
     busCardBody: (stop: string) =>
