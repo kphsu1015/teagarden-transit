@@ -138,6 +138,7 @@ export interface UIDict {
   navBus: string;
   navRail: string;
   navDrive: string;
+  navMap: string;
   backHome: string;
 
   howToTitle: string;
@@ -213,6 +214,11 @@ export interface UIDict {
 
   homeIntroTitle: string;
   homeCardCta: string;
+
+  mapPageTitle: string;
+  mapEmpty: string;
+  mapSource: string;
+  mapZoomClose: string;
 }
 
 export const UI: Record<Lang, UIDict> = {
@@ -225,6 +231,7 @@ export const UI: Record<Lang, UIDict> = {
     navBus: "搭乘公車",
     navRail: "搭乘主線小火車",
     navDrive: "開車",
+    navMap: "阿里山全區旅遊地圖",
     backHome: "回首頁",
 
     howToTitle: "怎麼來民宿",
@@ -305,6 +312,11 @@ export const UI: Record<Lang, UIDict> = {
 
     homeIntroTitle: "請選擇您的交通方式",
     homeCardCta: "查看詳情",
+
+    mapPageTitle: "阿里山全區旅遊地圖",
+    mapEmpty: "地圖資料尚未建立，請稍後再回來查看。",
+    mapSource: "資料來源：阿里山國家風景區管理處",
+    mapZoomClose: "關閉放大檢視",
   },
 
   "zh-CN": {
@@ -316,6 +328,7 @@ export const UI: Record<Lang, UIDict> = {
     navBus: "搭乘公车",
     navRail: "搭乘主线小火车",
     navDrive: "开车",
+    navMap: "阿里山全区旅游地图",
     backHome: "回首页",
 
     howToTitle: "怎么来民宿",
@@ -396,6 +409,11 @@ export const UI: Record<Lang, UIDict> = {
 
     homeIntroTitle: "请选择您的交通方式",
     homeCardCta: "查看详情",
+
+    mapPageTitle: "阿里山全区旅游地图",
+    mapEmpty: "地图资料尚未建立，请稍后再回来查看。",
+    mapSource: "资料来源：阿里山国家风景区管理处",
+    mapZoomClose: "关闭放大检视",
   },
 
   en: {
@@ -408,6 +426,7 @@ export const UI: Record<Lang, UIDict> = {
     navBus: "Take the Bus",
     navRail: "Take the Main-Line Train",
     navDrive: "Driving",
+    navMap: "Alishan Area Tourist Map",
     backHome: "Back to Home",
 
     howToTitle: "How to Get Here",
@@ -488,5 +507,10 @@ export const UI: Record<Lang, UIDict> = {
 
     homeIntroTitle: "Choose how you're getting here",
     homeCardCta: "View details",
+
+    mapPageTitle: "Alishan Area Tourist Map",
+    mapEmpty: "Map data hasn't been published yet — please check back later.",
+    mapSource: "Source: Alishan National Scenic Area Administration",
+    mapZoomClose: "Close zoomed view",
   },
 };

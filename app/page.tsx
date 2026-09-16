@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { CarIcon, BusIcon, TrainIcon, MapPinIcon, WalkIcon } from "./components/icons";
+import { CarIcon, BusIcon, MapIcon, TrainIcon, MapPinIcon, WalkIcon } from "./components/icons";
 import { useLanguage } from "./context/LanguageContext";
 import { MAP_URL, ADDRESS } from "./lib/site";
 
@@ -86,6 +86,13 @@ export default function Home() {
             >
               <CarIcon className="h-4 w-4" />
               {t.navDrive}
+            </Link>
+            <Link
+              href="/map"
+              className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-6 py-3 text-sm font-semibold text-emerald-900 shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-emerald-200"
+            >
+              <MapIcon className="h-4 w-4" />
+              {t.navMap}
             </Link>
           </div>
         </div>

@@ -40,6 +40,19 @@ export function TrainIcon({ className = base }: IconProps) {
   );
 }
 
+export function MapIcon({ className = base }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className}>
+      <path
+        d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2Z"
+        strokeLinejoin="round"
+        strokeLinecap="round"
+      />
+      <path d="M9 4v14M15 6v14" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function MapPinIcon({ className = base }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className={className}>

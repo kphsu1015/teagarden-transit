@@ -3,12 +3,13 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "../context/LanguageContext";
-import { BusIcon, CarIcon, TrainIcon } from "./icons";
+import { BusIcon, CarIcon, MapIcon, TrainIcon } from "./icons";
 
 const TABS = [
   { href: "/bus", icon: BusIcon, labelKey: "navBus" },
   { href: "/rail", icon: TrainIcon, labelKey: "navRail" },
   { href: "/drive", icon: CarIcon, labelKey: "navDrive" },
+  { href: "/map", icon: MapIcon, labelKey: "navMap" },
 ] as const;
 
 export default function TransitTabs() {

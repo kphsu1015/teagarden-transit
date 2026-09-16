@@ -23,6 +23,9 @@ export default function Header() {
           <Link href="/drive" className="hidden text-sm font-medium text-paper/85 hover:text-gold-soft sm:inline">
             {t.navDrive}
           </Link>
+          <Link href="/map" className="hidden text-sm font-medium text-paper/85 hover:text-gold-soft sm:inline">
+            {t.navMap}
+          </Link>
           <LanguageSwitcher dark />
         </nav>
       </div>
