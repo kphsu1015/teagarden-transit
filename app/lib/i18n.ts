@@ -223,7 +223,7 @@ export interface UIDict {
 
 export const UI: Record<Lang, UIDict> = {
   zh: {
-    heroKicker: "嘉義・番路・阿里山",
+    heroKicker: "嘉義・奮起湖・阿里山",
     heroTitle1: "茶香花園民宿",
     heroTitle2: "交通與班次查詢",
     heroP1: "茶香花園民宿鄰近「龍頭站」及「龍頭坪站」。您可搭乘台灣好行阿里山線公車、奮起湖線、達邦線公車，或搭乘阿里山森林鐵路轉乘公車前來。",
@@ -320,7 +320,7 @@ export const UI: Record<Lang, UIDict> = {
   },
 
   "zh-CN": {
-    heroKicker: "嘉义・番路・阿里山",
+    heroKicker: "嘉义・奋起湖・阿里山",
     heroTitle1: "茶香花园民宿",
     heroTitle2: "交通与班次查询",
     heroP1: "茶香花园民宿邻近「龙头站」及「龙头坪站」。您可搭乘台湾好行阿里山线公车、奋起湖线、达邦线公车，或搭乘阿里山森林铁路转乘公车前来。",
@@ -417,7 +417,7 @@ export const UI: Record<Lang, UIDict> = {
   },
 
   en: {
-    heroKicker: "Chiayi · Fanlu · Alishan",
+    heroKicker: "Chiayi · Fenqihu · Alishan",
     heroTitle1: "Tea Garden B&B",
     heroTitle2: "Transit & Schedule Finder",
     heroP1:
