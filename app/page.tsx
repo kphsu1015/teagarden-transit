@@ -21,7 +21,7 @@ export default function Home() {
     {
       href: "/drive",
       icon: <CarIcon className="h-6 w-6" />,
-      iconWrap: "bg-sky-100 text-sky-900",
+      iconWrap: "bg-[#d9c6be] text-[#4a332c]",
       title: t.driveTitle,
       body: t.driveDirections,
     },
@@ -35,7 +35,7 @@ export default function Home() {
     {
       href: "/rail",
       icon: <TrainIcon className="h-6 w-6" />,
-      iconWrap: "bg-rose-200 text-rose-900",
+      iconWrap: "bg-[#9cae93] text-[#243422]",
       title: t.railCardTitle,
       body: t.railSectionTitle,
     },
@@ -72,21 +72,21 @@ export default function Home() {
             </Link>
             <Link
               href="/rail"
-              className="inline-flex items-center gap-2 rounded-full bg-rose-200 px-6 py-3 text-sm font-semibold text-rose-900 shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-rose-300"
+              className="inline-flex items-center gap-2 rounded-full bg-[#9cae93] px-6 py-3 text-sm font-semibold text-[#243422] shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#8ca083]"
             >
               <TrainIcon className="h-4 w-4" />
               {t.navRail}
             </Link>
             <Link
               href="/drive"
-              className="inline-flex items-center gap-2 rounded-full bg-sky-100 px-6 py-3 text-sm font-semibold text-sky-900 shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-sky-200"
+              className="inline-flex items-center gap-2 rounded-full bg-[#d9c6be] px-6 py-3 text-sm font-semibold text-[#4a332c] shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#cdb6ac]"
             >
               <CarIcon className="h-4 w-4" />
               {t.navDrive}
             </Link>
             <Link
               href="/map"
-              className="inline-flex items-center gap-2 rounded-full bg-emerald-100 px-6 py-3 text-sm font-semibold text-emerald-900 shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-emerald-200"
+              className="inline-flex items-center gap-2 rounded-full bg-[#bedac4] px-6 py-3 text-sm font-semibold text-[#1f3d2a] shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#aacbb2]"
             >
               <MapIcon className="h-4 w-4" />
               {t.navMap}
