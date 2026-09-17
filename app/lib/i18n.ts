@@ -137,6 +137,7 @@ export function routeLabelText(label: string, lang: Lang): string {
 }
 
 export interface UIDict {
+  siteTitle: string;
   heroKicker: string;
   heroTitle1: string;
   heroTitle2: string;
@@ -266,6 +267,7 @@ export interface UIDict {
 
 export const UI: Record<Lang, UIDict> = {
   zh: {
+    siteTitle: "交通整合查詢系統",
     heroKicker: "嘉義・奮起湖・阿里山",
     heroTitle1: "茶香花園民宿",
     heroTitle2: "交通與班次查詢",
@@ -401,6 +403,7 @@ export const UI: Record<Lang, UIDict> = {
   },
 
   "zh-CN": {
+    siteTitle: "交通整合查询系统",
     heroKicker: "嘉义・奋起湖・阿里山",
     heroTitle1: "茶香花园民宿",
     heroTitle2: "交通与班次查询",
@@ -536,6 +539,7 @@ export const UI: Record<Lang, UIDict> = {
   },
 
   en: {
+    siteTitle: "Transit Integration System",
     heroKicker: "Chiayi · Fenqihu · Alishan",
     heroTitle1: "Tea Garden B&B",
     heroTitle2: "Transit & Schedule Finder",
