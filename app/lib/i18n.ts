@@ -15,6 +15,10 @@ const STOP_NAME_SC: Record<string, string> = {
   二延平步道: "二延平步道",
   隙頂: "隙顶",
   "龍頭站/龍頭坪站(茶香花園民宿)": "龙头站/龙头坪站(茶香花园民宿)",
+  // 以下三筆僅供交通小幫手快速地點按鈕顯示用，實際班次資料仍以上面合併站名為主鍵
+  龍頭站: "龙头站",
+  龍頭坪站: "龙头坪站",
+  茶香花園民宿: "茶香花园民宿",
   石棹: "石棹",
   奮起湖: "奋起湖",
   十字村: "十字村",
@@ -41,6 +45,9 @@ const STOP_NAME_EN: Record<string, string> = {
   二延平步道: "Eryanping Trail",
   隙頂: "Xiding",
   "龍頭站/龍頭坪站(茶香花園民宿)": "Longtou/Longtouping Station (Tea Garden B&B)",
+  龍頭站: "Longtou Station",
+  龍頭坪站: "Longtouping Station",
+  茶香花園民宿: "Tea Garden B&B",
   石棹: "Shizhuo",
   奮起湖: "Fenqihu",
   十字村: "Shizi Community",
@@ -223,6 +230,37 @@ export interface UIDict {
   mapEmpty: string;
   mapSource: string;
   mapZoomClose: string;
+
+  assistantButtonLabel: string;
+  assistantTitle: string;
+  assistantSubtitle: string;
+  assistantMinimizeAria: string;
+  assistantExpandAria: string;
+  assistantCloseAria: string;
+  assistantWelcome: string;
+  assistantInputPlaceholder: string;
+  assistantSendAria: string;
+  assistantQuickLabel: string;
+  assistantUseLocationLabel: string;
+  assistantLocationConsentTitle: string;
+  assistantLocationConsentBody: string;
+  assistantLocationConsentAllow: string;
+  assistantLocationConsentCancel: string;
+  assistantLocationDenied: string;
+  assistantLocationUnsupported: string;
+  assistantLocationResolved: (stop: string) => string;
+  assistantThinking: string;
+  assistantFallbackTitle: string;
+  assistantFallbackBody: string;
+  assistantFallbackLineLabel: string;
+  assistantFallbackScheduleLabel: string;
+  assistantErrorGeneric: string;
+  assistantTooLong: (current: number, max: number) => string;
+  assistantPendingOriginHint: (origin: string) => string;
+  assistantResetAria: string;
+  assistantClearAria: string;
+  assistantDriverOfferYes: string;
+  assistantDriverOfferNo: string;
 }
 
 export const UI: Record<Lang, UIDict> = {
@@ -325,6 +363,39 @@ export const UI: Record<Lang, UIDict> = {
     mapEmpty: "地圖資料尚未建立，請稍後再回來查看。",
     mapSource: "資料來源：阿里山國家風景區管理處",
     mapZoomClose: "關閉放大檢視",
+
+    assistantButtonLabel: "交通小幫手",
+    assistantTitle: "交通小幫手",
+    assistantSubtitle: "詢問班次、上車地點與是否來得及搭乘",
+    assistantMinimizeAria: "縮小聊天視窗",
+    assistantExpandAria: "展開聊天視窗",
+    assistantCloseAria: "關閉聊天視窗",
+    assistantWelcome:
+      "您好！我可以幫您查詢從嘉義各地前往茶香花園民宿的公車班次，也可以查民宿出發的班次。請點選下方常用地點，或直接輸入您的問題。",
+    assistantInputPlaceholder: "輸入您的問題，例如：我現在在嘉義火車站，怎麼去民宿？",
+    assistantSendAria: "送出",
+    assistantQuickLabel: "常用地點",
+    assistantUseLocationLabel: "使用目前位置",
+    assistantLocationConsentTitle: "使用目前位置？",
+    assistantLocationConsentBody:
+      "我們會請瀏覽器提供您目前的 GPS 位置，僅用於這一次查詢最近的搭車地點，不會被儲存或記錄。",
+    assistantLocationConsentAllow: "允許並定位",
+    assistantLocationConsentCancel: "取消",
+    assistantLocationDenied: "無法取得您的位置，請改用下方常用地點或自行輸入。",
+    assistantLocationUnsupported: "您的瀏覽器不支援定位功能，請改用下方常用地點或自行輸入。",
+    assistantLocationResolved: (stop: string) => `已為您定位到最近的站點：${stop}`,
+    assistantThinking: "交通小幫手思考中…",
+    assistantFallbackTitle: "智慧問答暫時無法使用",
+    assistantFallbackBody: "目前無法使用智慧問答，請使用班次查詢功能，或透過 LINE 與民宿聯繫。",
+    assistantFallbackLineLabel: "LINE 聯絡民宿",
+    assistantFallbackScheduleLabel: "前往班次查詢",
+    assistantErrorGeneric: "系統暫時發生問題，請稍後再試，或使用班次查詢功能。",
+    assistantTooLong: (current: number, max: number) => `輸入內容過長（${current}／${max} 字），請縮短後再送出。`,
+    assistantPendingOriginHint: (origin: string) => `您在${origin}，請問要前往哪裡？可以再點選一個常用地點，或直接輸入。`,
+    assistantResetAria: "清除目前選擇的出發地",
+    assistantClearAria: "清除對話／重新查詢",
+    assistantDriverOfferYes: "是，請提供",
+    assistantDriverOfferNo: "不用，謝謝",
   },
 
   "zh-CN": {
@@ -426,6 +497,39 @@ export const UI: Record<Lang, UIDict> = {
     mapEmpty: "地图资料尚未建立，请稍后再回来查看。",
     mapSource: "资料来源：阿里山国家风景区管理处",
     mapZoomClose: "关闭放大检视",
+
+    assistantButtonLabel: "交通小助手",
+    assistantTitle: "交通小助手",
+    assistantSubtitle: "询问班次、上车地点与是否来得及搭乘",
+    assistantMinimizeAria: "缩小聊天窗口",
+    assistantExpandAria: "展开聊天窗口",
+    assistantCloseAria: "关闭聊天窗口",
+    assistantWelcome:
+      "您好！我可以帮您查询从嘉义各地前往茶香花园民宿的公车班次，也可以查民宿出发的班次。请点选下方常用地点，或直接输入您的问题。",
+    assistantInputPlaceholder: "输入您的问题，例如：我现在在嘉义火车站，怎么去民宿？",
+    assistantSendAria: "送出",
+    assistantQuickLabel: "常用地点",
+    assistantUseLocationLabel: "使用目前位置",
+    assistantLocationConsentTitle: "使用目前位置？",
+    assistantLocationConsentBody:
+      "我们会请浏览器提供您目前的 GPS 位置，仅用于这一次查询最近的搭车地点，不会被储存或记录。",
+    assistantLocationConsentAllow: "允许并定位",
+    assistantLocationConsentCancel: "取消",
+    assistantLocationDenied: "无法取得您的位置，请改用下方常用地点或自行输入。",
+    assistantLocationUnsupported: "您的浏览器不支持定位功能，请改用下方常用地点或自行输入。",
+    assistantLocationResolved: (stop: string) => `已为您定位到最近的站点：${stop}`,
+    assistantThinking: "交通小助手思考中…",
+    assistantFallbackTitle: "智能问答暂时无法使用",
+    assistantFallbackBody: "目前无法使用智能问答，请使用班次查询功能，或通过 LINE 与民宿联系。",
+    assistantFallbackLineLabel: "LINE 联系民宿",
+    assistantFallbackScheduleLabel: "前往班次查询",
+    assistantErrorGeneric: "系统暂时发生问题，请稍后再试，或使用班次查询功能。",
+    assistantTooLong: (current: number, max: number) => `输入内容过长（${current}／${max} 字），请缩短后再送出。`,
+    assistantPendingOriginHint: (origin: string) => `您在${origin}，请问要前往哪里？可以再点选一个常用地点，或直接输入。`,
+    assistantResetAria: "清除目前选择的出发地",
+    assistantClearAria: "清除对话／重新查询",
+    assistantDriverOfferYes: "是，请提供",
+    assistantDriverOfferNo: "不用，谢谢",
   },
 
   en: {
@@ -528,5 +632,38 @@ export const UI: Record<Lang, UIDict> = {
     mapEmpty: "Map data hasn't been published yet — please check back later.",
     mapSource: "Source: Alishan National Scenic Area Administration",
     mapZoomClose: "Close zoomed view",
+
+    assistantButtonLabel: "Transit Assistant",
+    assistantTitle: "Transit Assistant",
+    assistantSubtitle: "Ask about departures, where to board, and whether you'll make it in time",
+    assistantMinimizeAria: "Minimize chat window",
+    assistantExpandAria: "Expand chat window",
+    assistantCloseAria: "Close chat window",
+    assistantWelcome:
+      "Hi! I can help you find bus departures from anywhere in Chiayi to Tea Garden B&B, or from the B&B onward. Tap a common location below, or type your question.",
+    assistantInputPlaceholder: "Type your question, e.g. I'm at Chiayi Railway Station, how do I get to the B&B?",
+    assistantSendAria: "Send",
+    assistantQuickLabel: "Common locations",
+    assistantUseLocationLabel: "Use my current location",
+    assistantLocationConsentTitle: "Use your current location?",
+    assistantLocationConsentBody:
+      "We'll ask your browser for your GPS location, used only for this one lookup of the nearest boarding point — it won't be stored or logged.",
+    assistantLocationConsentAllow: "Allow & locate",
+    assistantLocationConsentCancel: "Cancel",
+    assistantLocationDenied: "We couldn't get your location — please pick a common location below or type it in.",
+    assistantLocationUnsupported: "Your browser doesn't support location — please pick a common location below or type it in.",
+    assistantLocationResolved: (stop: string) => `Located you near: ${stop}`,
+    assistantThinking: "Transit Assistant is thinking…",
+    assistantFallbackTitle: "Smart Q&A temporarily unavailable",
+    assistantFallbackBody: "Smart Q&A isn't available right now — please use the schedule finder, or contact us on LINE.",
+    assistantFallbackLineLabel: "Contact us on LINE",
+    assistantFallbackScheduleLabel: "Go to schedule finder",
+    assistantErrorGeneric: "Something went wrong on our end — please try again shortly, or use the schedule finder.",
+    assistantTooLong: (current: number, max: number) => `Your message is too long (${current}/${max} characters) — please shorten it and try again.`,
+    assistantPendingOriginHint: (origin: string) => `You're at ${origin} — where would you like to go? Tap another common location, or type it in.`,
+    assistantResetAria: "Clear the selected starting point",
+    assistantClearAria: "Clear conversation / start over",
+    assistantDriverOfferYes: "Yes, please",
+    assistantDriverOfferNo: "No, thanks",
   },
 };

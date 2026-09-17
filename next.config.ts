@@ -24,7 +24,8 @@ const securityHeaders = [
   { key: "Content-Security-Policy", value: contentSecurityPolicy },
   { key: "X-Content-Type-Options", value: "nosniff" },
   { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+  // geolocation=(self)：交通小幫手「使用目前位置」功能需要瀏覽器 GPS API，僅允許本站自身使用
+  { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(self)" },
 ];
 
 const nextConfig: NextConfig = {

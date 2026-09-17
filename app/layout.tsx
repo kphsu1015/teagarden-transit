@@ -4,6 +4,7 @@ import "./globals.css";
 import { LanguageProvider } from "./context/LanguageContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import TransitAssistantWidget from "./components/transit-assistant/TransitAssistantWidget";
 
 const notoSans = Noto_Sans_TC({
   variable: "--font-noto-sans-tc",
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Header />
           {children}
           <Footer />
+          <TransitAssistantWidget />
         </LanguageProvider>
       </body>
     </html>
