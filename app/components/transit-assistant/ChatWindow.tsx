@@ -104,10 +104,20 @@ export default function ChatWindow({
 
   useEffect(() => {
     if (messages.length === 0) {
-      setMessages([{ id: nextId(), role: "assistant", text: t.assistantWelcome }]);
+      setMessages([{ id: "welcome", role: "assistant", text: t.assistantWelcome }]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // 語言切換時，若使用者尚未開始對話（只有初始的招呼語），同步更新招呼語的語言
+  useEffect(() => {
+    setMessages((prev) =>
+      prev.length === 1 && prev[0].id === "welcome"
+        ? [{ ...prev[0], text: t.assistantWelcome }]
+        : prev
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [t.assistantWelcome]);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });

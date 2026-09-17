@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { CarIcon, BusIcon, MapIcon, TrainIcon, MapPinIcon, WalkIcon } from "./components/icons";
 import { useLanguage } from "./context/LanguageContext";
-import { MAP_URL, ADDRESS } from "./lib/site";
+import { MAP_URL } from "./lib/site";
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
@@ -15,8 +15,7 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 export default function Home() {
-  const { t, lang } = useLanguage();
-  const address = ADDRESS[lang];
+  const { t } = useLanguage();
 
   const modes = [
     {
@@ -59,8 +58,6 @@ export default function Home() {
             {t.heroKicker}
           </p>
           <h1 className="mt-6 font-serif text-4xl leading-tight text-paper md:text-6xl">
-            {t.heroTitle1}
-            <br />
             <span className="text-gold-soft">{t.heroTitle2}</span>
           </h1>
           <p className="mt-6 max-w-xl leading-8 text-paper/80">{t.heroP1}</p>
@@ -163,13 +160,7 @@ export default function Home() {
               backgroundImage: "radial-gradient(circle at 90% 10%, rgba(216,184,118,0.3), transparent 45%)",
             }}
           />
-          <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex items-start gap-3">
-              <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold/20 text-gold-soft">
-                <MapPinIcon />
-              </span>
-              <p className="leading-7 text-paper/90">{address}</p>
-            </div>
+          <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
             <a
               href={MAP_URL}
               target="_blank"

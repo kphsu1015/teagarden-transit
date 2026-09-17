@@ -55,6 +55,7 @@ const ALIASES: Record<string, string[]> = {
 const HOMESTAY_ALIASES = [
   "龍頭站", "龙头站",
   "龍頭站/龍頭坪站(茶香花園民宿)", "龙头站/龙头坪站(茶香花园民宿)",
+  "longtou/longtouping station (tea garden b&b)",
   "longtou station", "longtou",
 ];
 const LONGTOUPING_ALIASES = [

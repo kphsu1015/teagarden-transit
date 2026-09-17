@@ -79,14 +79,19 @@ export default function TransitAssistantWidget() {
 
   if (panelState === "closed") {
     return (
-      <button
-        type="button"
-        onClick={() => setPanelState("open")}
-        aria-label={t.assistantButtonLabel}
-        className="fixed bottom-5 right-5 z-[70] flex h-14 w-14 items-center justify-center rounded-full bg-pine text-paper shadow-lg shadow-pine-dark/40 transition hover:bg-pine-dark focus:outline-none focus:ring-2 focus:ring-gold-soft sm:h-16 sm:w-16"
-      >
-        <ChatIcon className="h-7 w-7" />
-      </button>
+      <div className="fixed bottom-5 right-5 z-[70] flex flex-col items-end gap-2">
+        <span className="rounded-full bg-pine-dark px-3 py-1.5 text-xs font-medium text-paper shadow-md">
+          {t.assistantHelpPrompt}
+        </span>
+        <button
+          type="button"
+          onClick={() => setPanelState("open")}
+          aria-label={t.assistantButtonLabel}
+          className="flex h-14 w-14 items-center justify-center rounded-full bg-pine text-paper shadow-lg shadow-pine-dark/40 transition hover:bg-pine-dark focus:outline-none focus:ring-2 focus:ring-gold-soft sm:h-16 sm:w-16"
+        >
+          <ChatIcon className="h-7 w-7" />
+        </button>
+      </div>
     );
   }
 

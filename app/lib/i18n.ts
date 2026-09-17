@@ -232,6 +232,7 @@ export interface UIDict {
   mapZoomClose: string;
 
   assistantButtonLabel: string;
+  assistantHelpPrompt: string;
   assistantTitle: string;
   assistantSubtitle: string;
   assistantMinimizeAria: string;
@@ -365,6 +366,7 @@ export const UI: Record<Lang, UIDict> = {
     mapZoomClose: "關閉放大檢視",
 
     assistantButtonLabel: "交通小幫手",
+    assistantHelpPrompt: "有需要協助嗎?",
     assistantTitle: "交通小幫手",
     assistantSubtitle: "詢問班次、上車地點與是否來得及搭乘",
     assistantMinimizeAria: "縮小聊天視窗",
@@ -499,6 +501,7 @@ export const UI: Record<Lang, UIDict> = {
     mapZoomClose: "关闭放大检视",
 
     assistantButtonLabel: "交通小助手",
+    assistantHelpPrompt: "有需要帮助吗?",
     assistantTitle: "交通小助手",
     assistantSubtitle: "询问班次、上车地点与是否来得及搭乘",
     assistantMinimizeAria: "缩小聊天窗口",
@@ -634,6 +637,7 @@ export const UI: Record<Lang, UIDict> = {
     mapZoomClose: "Close zoomed view",
 
     assistantButtonLabel: "Transit Assistant",
+    assistantHelpPrompt: "Need any help?",
     assistantTitle: "Transit Assistant",
     assistantSubtitle: "Ask about departures, where to board, and whether you'll make it in time",
     assistantMinimizeAria: "Minimize chat window",
