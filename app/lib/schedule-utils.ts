@@ -1,12 +1,29 @@
 import { RouteData, BusRoute, ROUTES, ROUTE_B } from "./bus-data";
 import { LOCAL_ROUTES } from "./local-bus-data";
+import { lookupFare, type FareRouteNo } from "./fare-data";
 
-export interface Trip {
+/** fareFull/fareHalf 是現金票價；cardFareFull/cardFareHalf 是刷卡（悠遊卡等）票價。查不到官方票價時全部是 null。 */
+export interface FareFields {
+  fareFull: number | null;
+  fareHalf: number | null;
+  cardFareFull: number | null;
+  cardFareHalf: number | null;
+}
+
+export function fareFieldsFor(routeNo: FareRouteNo, originName: string, destName: string): FareFields {
+  const q = lookupFare(routeNo, originName, destName);
+  return {
+    fareFull: q?.cash.full ?? null,
+    fareHalf: q?.cash.half ?? null,
+    cardFareFull: q?.card.full ?? null,
+    cardFareHalf: q?.card.half ?? null,
+  };
+}
+
+export interface Trip extends FareFields {
   direction: "outbound" | "inbound";
   departTime: string;
   arriveTime: string;
-  fareFull: number | null;
-  fareHalf: number | null;
   departMinutes: number;
 }
 
@@ -28,28 +45,6 @@ export function minutesToNowLabel(diffMin: number): string {
   const h = Math.floor(diffMin / 60);
   const m = diffMin % 60;
   return m === 0 ? `${h} 小時後發車` : `${h} 小時 ${m} 分鐘後發車`;
-}
-
-/** 站名 -> 距起點站累計票價陣列索引（以 route.outbound.stops 順序為準） */
-function fareIndexMap(route: RouteData): Record<string, number> {
-  const map: Record<string, number> = {};
-  route.outbound.stops.forEach((name, i) => {
-    map[name] = i;
-  });
-  return map;
-}
-
-function computeFare(route: RouteData, originName: string, destName: string) {
-  const idx = fareIndexMap(route);
-  const oi = idx[originName];
-  const di = idx[destName];
-  if (oi === undefined || di === undefined) {
-    return { full: null, half: null };
-  }
-  return {
-    full: Math.abs(route.fareFull[di] - route.fareFull[oi]),
-    half: Math.abs(route.fareHalf[di] - route.fareHalf[oi]),
-  };
 }
 
 /** 在一組「站名陣列 + 逐班次時刻陣列」中找出兩站之間的時刻（不含票價） */
@@ -80,13 +75,13 @@ function tripsForDirection(
   destName: string
 ): Trip[] {
   const dir = route[direction];
-  const fare = computeFare(route, originName, destName);
+  const fare = fareFieldsFor(route.number as FareRouteNo, originName, destName);
   return timesForStops(
     dir.stops,
     dir.runs.map((r) => r.times),
     originName,
     destName
-  ).map((t) => ({ ...t, direction, fareFull: fare.full, fareHalf: fare.half }));
+  ).map((t) => ({ ...t, direction, ...fare }));
 }
 
 /** 找出某路線兩站之間的所有班次（自動判斷去程或回程方向） */
@@ -133,12 +128,10 @@ export function unifiedStopNames(): string[] {
   return names;
 }
 
-export interface UnifiedTrip {
+export interface UnifiedTrip extends FareFields {
   routeLabel: string;
   departTime: string;
   arriveTime: string | null;
-  fareFull: number | null;
-  fareHalf: number | null;
   departMinutes: number;
   note?: string;
   estimated?: boolean;
@@ -215,16 +208,22 @@ function inboundOffsetsForRoute(destLabel: string): Record<string, number> {
   return {};
 }
 
-// 7314 達邦線只在「嘉義大雅站～石棹」這段與 B 線共用道路，過了石棹便分道往達邦，換算僅適用於此範圍
-const SHARED_CORRIDOR_END = "石棹";
-const corridorEndIdx = ROUTE_B.outbound.stops.indexOf(SHARED_CORRIDOR_END);
-const CORRIDOR_STOPS = new Set(ROUTE_B.outbound.stops.slice(0, corridorEndIdx + 1));
+// 在地公車只在「嘉義大雅站～某一站」這段與 B 線共用道路，換算僅適用於此範圍：
+// 7302 奮起湖線只到奮起湖（不會到十字村、青年活動中心、阿里山轉運站），
+// 7314 達邦線過了石棹便分道往達邦。
+const SHARED_CORRIDOR_END: Record<string, string> = { "7302": "奮起湖", "7314": "石棹" };
+const CORRIDOR_STOPS_BY_ROUTE: Record<string, Set<string>> = {};
+for (const [routeId, endStop] of Object.entries(SHARED_CORRIDOR_END)) {
+  const endIdx = ROUTE_B.outbound.stops.indexOf(endStop);
+  CORRIDOR_STOPS_BY_ROUTE[routeId] = new Set(ROUTE_B.outbound.stops.slice(0, endIdx + 1));
+}
 
 function offsetsForRoute(routeId: string, offsets: Record<string, number>): Record<string, number> {
-  if (routeId !== "7314") return offsets;
+  const allowed = CORRIDOR_STOPS_BY_ROUTE[routeId];
+  if (!allowed) return offsets;
   const filtered: Record<string, number> = {};
   for (const [name, min] of Object.entries(offsets)) {
-    if (CORRIDOR_STOPS.has(name)) filtered[name] = min;
+    if (allowed.has(name)) filtered[name] = min;
   }
   return filtered;
 }
@@ -255,14 +254,17 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
         arriveTime: t.arriveTime,
         fareFull: t.fareFull,
         fareHalf: t.fareHalf,
+        cardFareFull: t.cardFareFull,
+        cardFareHalf: t.cardFareHalf,
         departMinutes: t.departMinutes,
       });
     }
   }
 
   for (const lr of LOCAL_ROUTES) {
+    const localFare = fareFieldsFor(lr.id, originName, destName);
     const outboundOffsets = offsetsForRoute(lr.id, OUTBOUND_OFFSETS_FROM_GATEWAY);
-    const inboundOffsets = inboundOffsetsForRoute(lr.destLabel);
+    const inboundOffsets = offsetsForRoute(lr.id, inboundOffsetsForRoute(lr.destLabel));
 
     // 起站端出發：往遠端終點站，或往路廊內任一共用站（如龍頭站/龍頭坪站、吳鳳廟…），以 B 線站間時間差換算
     if (originName === lr.gatewayLabel) {
@@ -276,8 +278,7 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
           routeLabel: lr.label,
           departTime: t.time,
           arriveTime: offset != null ? minutesToTime(departMinutes + offset) : null,
-          fareFull: null,
-          fareHalf: null,
+          ...localFare,
           departMinutes,
           note: t.note,
           estimated: offset != null,
@@ -297,8 +298,7 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
           routeLabel: lr.label,
           departTime: t.time,
           arriveTime: offset != null ? minutesToTime(departMinutes + offset) : null,
-          fareFull: null,
-          fareHalf: null,
+          ...localFare,
           departMinutes,
           note: t.note,
           estimated: offset != null,
@@ -315,8 +315,7 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
           routeLabel: lr.label,
           departTime: t.departTime,
           arriveTime: t.arriveTime,
-          fareFull: null,
-          fareHalf: null,
+          ...localFare,
           departMinutes: t.departMinutes,
           estimated: true,
         });
@@ -330,8 +329,7 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
           routeLabel: lr.label,
           departTime: t.departTime,
           arriveTime: t.arriveTime,
-          fareFull: null,
-          fareHalf: null,
+          ...localFare,
           departMinutes: t.departMinutes,
           estimated: true,
         });

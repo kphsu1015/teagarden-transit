@@ -26,6 +26,9 @@ export interface ModedTrip {
   arriveTime: string | null;
   fareFull: number | null;
   fareHalf: number | null;
+  /** 刷卡（悠遊卡等）票價；只有公車有官方刷卡票價表，火車沒有 */
+  cardFareFull?: number | null;
+  cardFareHalf?: number | null;
   departMinutes: number;
   note?: string;
   /** 只有公車的在地路線（7302/7314）換算站點時會是 true；火車一律是官方公告時刻，不會是 estimated */
@@ -44,6 +47,8 @@ export function findBusTrips(originKey: string, destKey: string, dayType: DayTyp
     arriveTime: t.arriveTime,
     fareFull: t.fareFull,
     fareHalf: t.fareHalf,
+    cardFareFull: t.cardFareFull,
+    cardFareHalf: t.cardFareHalf,
     departMinutes: t.departMinutes,
     note: t.note,
     estimated: t.estimated,

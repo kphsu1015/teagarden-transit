@@ -192,6 +192,8 @@ export interface UIDict {
   estimatedTag: string;
   fareFull: string;
   fareHalf: string;
+  fareCash: string;
+  fareCard: string;
   fareUnknown: string;
   doneForToday: string;
   showFullTimetable: (show: boolean, o: string, d: string, n: number) => string;
@@ -327,6 +329,8 @@ export const UI: Record<Lang, UIDict> = {
     estimatedTag: "(換算估計)",
     fareFull: "全票",
     fareHalf: "半票",
+    fareCash: "現金",
+    fareCard: "刷卡（悠遊卡等）",
     fareUnknown: "票價請洽車上或官網",
     doneForToday: "今日班次已結束，請參考下方完整時刻表，或改選其他日期。",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "隱藏" : "顯示"}「${o} → ${d}」完整班次時刻表 (${n} 班)`,
@@ -463,6 +467,8 @@ export const UI: Record<Lang, UIDict> = {
     estimatedTag: "(换算估计)",
     fareFull: "全票",
     fareHalf: "半票",
+    fareCash: "现金",
+    fareCard: "刷卡（悠游卡等）",
     fareUnknown: "票价请洽车上或官网",
     doneForToday: "今日班次已结束，请参考下方完整时刻表，或改选其他日期。",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "隐藏" : "显示"}「${o} → ${d}」完整班次时刻表 (${n} 班)`,
@@ -600,6 +606,8 @@ export const UI: Record<Lang, UIDict> = {
     estimatedTag: "(estimated)",
     fareFull: "Full fare",
     fareHalf: "Half fare",
+    fareCash: "Cash",
+    fareCard: "Card (EasyCard etc.)",
     fareUnknown: "Ask on board or check the official site",
     doneForToday: "No more departures today — see the full timetable below, or pick another date.",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "Hide" : "Show"} the full timetable for "${o} → ${d}" (${n} trips)`,

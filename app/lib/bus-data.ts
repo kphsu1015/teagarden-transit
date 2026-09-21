@@ -1,6 +1,7 @@
 // 資料來源：台灣好行阿里山線官方時刻表 PDF（阿里山國家風景區 ali-nsa.net）
 // A線 7329：高鐵嘉義站-阿里山　／　B線 7322：嘉義大雅站/嘉義火車站-阿里山
-// 資料整理時間：2026-09-14。時刻與票價每年可能調整，正確資訊請以台灣好行官網為準。
+// 資料整理時間：2026-09-14。時刻每年可能調整，正確資訊請以台灣好行官網為準。
+// 票價在 fare-data.ts（依官方「票價表(投現)／(刷卡)」兩站查表）。
 // "-" 代表該班次不停靠此站。
 
 export type BusRoute = "A" | "B";
@@ -28,9 +29,6 @@ export interface RouteData {
   originLabel: string;
   outbound: RouteDirectionData; // 前往阿里山
   inbound: RouteDirectionData; // 返回嘉義
-  /** 以 outbound.stops 順序為準的累計票價（從起點站算起），用來換算任兩站區間的參考票價 */
-  fareFull: number[];
-  fareHalf: number[];
 }
 
 const t = (s: string) => (s === "-" ? null : s);
@@ -95,9 +93,6 @@ export const ROUTE_A: RouteData = {
       { times: row("16:40 16:46 17:00 - 17:22 17:30 17:35 17:39 17:44 17:48 18:15 18:17 18:20 18:26 18:35 19:00 19:10") },
     ],
   },
-  // 對應 outbound.stops：高鐵嘉義站(起點)～阿里山轉運站 的累計參考票價
-  fareFull: [0, 25, 67, 82, 104, 104, 138, 154, 166, 171, 179, 196, 212, 240, 266, 278],
-  fareHalf: [0, 12, 33, 41, 52, 52, 69, 77, 83, 86, 90, 98, 106, 120, 133, 139],
 };
 
 export const ROUTE_B: RouteData = {
@@ -172,9 +167,6 @@ export const ROUTE_B: RouteData = {
       { times: row("17:10 17:16 17:28 - 17:50 18:00 18:05 18:08 18:12 18:15 18:40 18:42 18:43 18:53 19:00 19:40 19:55") },
     ],
   },
-  // 對應 outbound.stops：嘉義大雅站(起點)～阿里山轉運站 的累計參考票價
-  fareFull: [0, 25, 35, 51, 73, 110, 110, 126, 136, 143, 152, 169, 185, 214, 241, 251, 251],
-  fareHalf: [0, 12, 18, 25, 36, 55, 55, 63, 68, 72, 76, 84, 93, 107, 120, 125, 125],
 };
 
 export const ROUTES: RouteData[] = [ROUTE_A, ROUTE_B];

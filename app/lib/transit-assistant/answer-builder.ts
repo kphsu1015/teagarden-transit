@@ -334,7 +334,15 @@ export function buildAnswer(ctx: AnswerContext): string {
     }
   }
 
-  if (trip.fareFull != null) {
+  if (trip.fareFull != null && trip.cardFareFull != null) {
+    lines.push(
+      lang === "en"
+        ? `Fares: cash NT$${trip.fareFull} full / NT$${trip.fareHalf} concession; by card (EasyCard etc.) NT$${trip.cardFareFull} full / NT$${trip.cardFareHalf} concession.`
+        : lang === "zh-CN"
+          ? `票价方面，现金全票 NT$${trip.fareFull}、半票 NT$${trip.fareHalf}；刷卡（悠游卡等）全票 NT$${trip.cardFareFull}、半票 NT$${trip.cardFareHalf}，提供您参考。`
+          : `票價方面，現金全票 NT$${trip.fareFull}、半票 NT$${trip.fareHalf}；刷卡（悠遊卡等）全票 NT$${trip.cardFareFull}、半票 NT$${trip.cardFareHalf}，提供您參考。`
+    );
+  } else if (trip.fareFull != null) {
     lines.push(
       lang === "en"
         ? `The fare is NT$${trip.fareFull} for a full ticket, or NT$${trip.fareHalf} for a concession ticket.`

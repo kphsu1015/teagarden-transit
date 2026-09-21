@@ -177,8 +177,15 @@ export default function BusScheduleFinder() {
                     </span>
                   )}
                   {trip.fareFull != null ? (
-                    <span className="text-ink-soft">
-                      {t.fareFull} NT${trip.fareFull}／{t.fareHalf} NT${trip.fareHalf}
+                    <span className="text-right text-ink-soft">
+                      <span className="block">
+                        {t.fareCash}　{t.fareFull} NT${trip.fareFull}／{t.fareHalf} NT${trip.fareHalf}
+                      </span>
+                      {trip.cardFareFull != null && (
+                        <span className="block">
+                          {t.fareCard}　{t.fareFull} NT${trip.cardFareFull}／{t.fareHalf} NT${trip.cardFareHalf}
+                        </span>
+                      )}
                     </span>
                   ) : (
                     <span className="text-ink-soft">{t.fareUnknown}</span>
