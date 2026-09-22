@@ -150,7 +150,9 @@ export default function BusScheduleFinder() {
           </p>
         ) : nextTrips.length > 0 ? (
           <ul className="divide-y divide-paper-dim">
-            {nextTrips.map((trip, i) => (
+            {nextTrips.map((trip, i) => {
+              const isOriginStop = trip.tripOriginName === origin;
+              return (
               <li key={i} className="flex flex-wrap items-center justify-between gap-2 py-3">
                 <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
                   <span className="rounded-full bg-pine/10 px-2 py-0.5 text-xs font-medium text-pine-dark">
@@ -168,12 +170,15 @@ export default function BusScheduleFinder() {
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   {isToday && (
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-xs ${
-                        i === 0 ? "bg-pine/15 text-pine-dark" : "bg-paper-dim text-ink-soft"
-                      }`}
-                    >
-                      {minutesToNowLabel(trip.departMinutes - now.minutes)}
+                    <span className="flex flex-col items-end gap-0.5">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-xs ${
+                          i === 0 ? "bg-pine/15 text-pine-dark" : "bg-paper-dim text-ink-soft"
+                        }`}
+                      >
+                        {minutesToNowLabel(trip.departMinutes - now.minutes, isOriginStop)}
+                      </span>
+                      {!isOriginStop && <span className="text-xs text-red-600">{t.passingStopDelayNotice}</span>}
                     </span>
                   )}
                   {trip.fareFull != null ? (
@@ -192,7 +197,8 @@ export default function BusScheduleFinder() {
                   )}
                 </div>
               </li>
-            ))}
+              );
+            })}
           </ul>
         ) : (
           <p className="rounded-lg bg-paper-dim px-4 py-3 text-sm text-ink-soft">{t.doneForToday}</p>

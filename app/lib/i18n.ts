@@ -190,6 +190,8 @@ export interface UIDict {
   pickDifferentStops: string;
   noDirectTrips: (o: string, d: string) => string;
   estimatedTag: string;
+  /** 顯示在「幾分鐘後到站」倒數下方的紅字提醒：此為排定時刻推算，非車輛 GPS 即時定位 */
+  passingStopDelayNotice: string;
   fareFull: string;
   fareHalf: string;
   fareCash: string;
@@ -327,6 +329,7 @@ export const UI: Record<Lang, UIDict> = {
     pickDifferentStops: "請選擇不同的起訖站。",
     noDirectTrips: (o: string, d: string) => `目前四條路線都查不到「${o}」到「${d}」的直達班次，請確認站名方向，或改選鄰近的站。`,
     estimatedTag: "(換算估計)",
+    passingStopDelayNotice: "非 GPS 定位，實際到站時間仍可能延遲",
     fareFull: "全票",
     fareHalf: "半票",
     fareCash: "現金",
@@ -465,6 +468,7 @@ export const UI: Record<Lang, UIDict> = {
     pickDifferentStops: "请选择不同的起讫站。",
     noDirectTrips: (o: string, d: string) => `目前四条路线都查不到「${o}」到「${d}」的直达班次，请确认站名方向，或改选邻近的站。`,
     estimatedTag: "(换算估计)",
+    passingStopDelayNotice: "非 GPS 定位，实际到站时间仍可能延迟",
     fareFull: "全票",
     fareHalf: "半票",
     fareCash: "现金",
@@ -604,6 +608,7 @@ export const UI: Record<Lang, UIDict> = {
     pickDifferentStops: "Please choose two different stops.",
     noDirectTrips: (o: string, d: string) => `None of the four routes currently show a direct trip from "${o}" to "${d}". Check the direction, or try a nearby stop.`,
     estimatedTag: "(estimated)",
+    passingStopDelayNotice: "Not GPS-tracked — actual arrival may still be delayed",
     fareFull: "Full fare",
     fareHalf: "Half fare",
     fareCash: "Cash",

@@ -25,6 +25,9 @@ export interface Trip extends FareFields {
   departTime: string;
   arriveTime: string;
   departMinutes: number;
+  /** 這一班次實際的起點站／終點站（依該班次逐站停靠資料判斷，不是使用者查詢的起訖站） */
+  tripOriginName: string;
+  tripDestName: string;
 }
 
 export function timeToMinutes(hhmm: string): number {
@@ -38,13 +41,32 @@ export function minutesToTime(totalMinutes: number): string {
   return `${String(h).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`;
 }
 
-export function minutesToNowLabel(diffMin: number): string {
-  if (diffMin < 0) return "已發車";
-  if (diffMin === 0) return "現在發車";
-  if (diffMin < 60) return `${diffMin} 分鐘後發車`;
+/**
+ * 依「目前顯示的車站是否為該班次起點站」，用不同措辭描述倒數：
+ * 起點站用「發車」（乘客從這裡上車搭乘），中途站用「到站」（班次行經、非始發於此）。
+ */
+export function minutesToNowLabel(diffMin: number, isOrigin: boolean): string {
+  const verb = isOrigin ? "發車" : "到站";
+  if (diffMin < 0) return `已${verb}`;
+  if (diffMin === 0) return `現在${verb}`;
+  if (diffMin < 60) return `${diffMin} 分鐘後${verb}`;
   const h = Math.floor(diffMin / 60);
   const m = diffMin % 60;
-  return m === 0 ? `${h} 小時後發車` : `${h} 小時 ${m} 分鐘後發車`;
+  return m === 0 ? `${h} 小時後${verb}` : `${h} 小時 ${m} 分鐘後${verb}`;
+}
+
+/** 在某一班次的逐站時刻中，找出實際有停靠的第一站／最後一站站名（null 代表該班次不停靠） */
+function runOriginDestNames(stops: string[], times: (string | null)[]): { originName: string; destName: string } | null {
+  const firstIdx = times.findIndex((t) => t != null);
+  if (firstIdx === -1) return null;
+  let lastIdx = firstIdx;
+  for (let i = times.length - 1; i >= 0; i--) {
+    if (times[i] != null) {
+      lastIdx = i;
+      break;
+    }
+  }
+  return { originName: stops[firstIdx], destName: stops[lastIdx] };
 }
 
 /** 在一組「站名陣列 + 逐班次時刻陣列」中找出兩站之間的時刻（不含票價） */
@@ -53,17 +75,24 @@ function timesForStops(
   runsTimes: (string | null)[][],
   originName: string,
   destName: string
-): { departTime: string; arriveTime: string; departMinutes: number }[] {
+): { departTime: string; arriveTime: string; departMinutes: number; tripOriginName: string; tripDestName: string }[] {
   const oi = stops.indexOf(originName);
   const di = stops.indexOf(destName);
   if (oi === -1 || di === -1 || oi >= di) return [];
 
-  const out: { departTime: string; arriveTime: string; departMinutes: number }[] = [];
+  const out: { departTime: string; arriveTime: string; departMinutes: number; tripOriginName: string; tripDestName: string }[] = [];
   for (const times of runsTimes) {
     const dep = times[oi];
     const arr = times[di];
     if (!dep || !arr) continue;
-    out.push({ departTime: dep, arriveTime: arr, departMinutes: timeToMinutes(dep) });
+    const runEnds = runOriginDestNames(stops, times);
+    out.push({
+      departTime: dep,
+      arriveTime: arr,
+      departMinutes: timeToMinutes(dep),
+      tripOriginName: runEnds?.originName ?? originName,
+      tripDestName: runEnds?.destName ?? destName,
+    });
   }
   return out.sort((a, b) => a.departMinutes - b.departMinutes);
 }
@@ -135,6 +164,9 @@ export interface UnifiedTrip extends FareFields {
   departMinutes: number;
   note?: string;
   estimated?: boolean;
+  /** 這一班次實際的起點站／終點站（依該班次逐站停靠資料判斷，不是使用者查詢的起訖站） */
+  tripOriginName: string;
+  tripDestName: string;
 }
 
 export type DayType = "weekday" | "weekend";
@@ -257,6 +289,8 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
         cardFareFull: t.cardFareFull,
         cardFareHalf: t.cardFareHalf,
         departMinutes: t.departMinutes,
+        tripOriginName: t.tripOriginName,
+        tripDestName: t.tripDestName,
       });
     }
   }
@@ -282,6 +316,9 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
           departMinutes,
           note: t.note,
           estimated: offset != null,
+          // 這條路線的實體班次一律從 gatewayLabel 開往 destLabel（即使乘客中途下車，車還是會開到底）
+          tripOriginName: lr.gatewayLabel,
+          tripDestName: lr.destLabel,
         });
       }
     }
@@ -302,6 +339,8 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
           departMinutes,
           note: t.note,
           estimated: offset != null,
+          tripOriginName: lr.destLabel,
+          tripDestName: lr.gatewayLabel,
         });
       }
     }
@@ -318,6 +357,9 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
           ...localFare,
           departMinutes: t.departMinutes,
           estimated: true,
+          // 這條路線的實體班次一律從 destLabel 開往 gatewayLabel，乘客只是在路廊中途上車
+          tripOriginName: lr.destLabel,
+          tripDestName: lr.gatewayLabel,
         });
       }
     }
@@ -332,6 +374,8 @@ export function findUnifiedTrips(originName: string, destName: string, dayType: 
           ...localFare,
           departMinutes: t.departMinutes,
           estimated: true,
+          tripOriginName: lr.gatewayLabel,
+          tripDestName: lr.destLabel,
         });
       }
     }
