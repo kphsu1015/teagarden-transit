@@ -71,7 +71,7 @@ test("未來日期（明天）沒有指定時間/時段：不可套用今天現�
   // 就算現在時間已經很晚（例如晚上 11 點），明天最早一班公車也不該被判定成「已發車」
   const plan = planTrip({ originKey: "高鐵嘉義站", destKey: HOMESTAY_STOP, dateISO: tomorrowISO, window, transportMode: "bus" });
   assert.equal(plan.status, "ok", "明天一早的班次不應該被誤判成末班車已過");
-  assert.equal(plan.nextTrip?.departTime, "09:30", "明天第一班應該是當天時刻表最早的 09:30");
+  assert.equal(plan.nextTrip?.departTime, "08:40", "明天第一班應該是當天時刻表最早的 08:40");
 });
 
 test("今天查詢「後天早上」：時段查詢限定在後天 06:00–12:00 之間，不受現在時間影響，並提供多個選擇", () => {
@@ -84,8 +84,8 @@ test("今天查詢「後天早上」：時段查詢限定在後天 06:00–12:00
 
   const plan = planTrip({ originKey: "高鐵嘉義站", destKey: HOMESTAY_STOP, dateISO: dayAfterTomorrowISO, window, transportMode: "bus" });
   assert.equal(plan.status, "ok");
-  assert.equal(plan.nextTrip?.departTime, "09:30");
-  assert.equal(plan.moreTrips.length, 2, "早上時段內，除了下一班還應該有 2 班可選（09:30／10:10／11:00 共 3 班）");
+  assert.equal(plan.nextTrip?.departTime, "08:40");
+  assert.equal(plan.moreTrips.length, 3, "早上時段內，除了下一班還應該有 3 班可選（08:40／09:30／10:10／11:00 共 4 班）");
 });
 
 test("跨月底：8/31 23:50 應該早於 9/1 00:10（換算成絕對時間點才能正確跨月比較，不能只比 HH:mm）", () => {
