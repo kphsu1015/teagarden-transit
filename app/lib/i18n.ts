@@ -28,6 +28,7 @@ const STOP_NAME_SC: Record<string, string> = {
   達邦: "达邦",
   嘉義: "嘉义",
   北門: "北门",
+  十字路: "十字路",
   阿里山: "阿里山",
 };
 
@@ -57,6 +58,7 @@ const STOP_NAME_EN: Record<string, string> = {
   達邦: "Dabang",
   嘉義: "Chiayi",
   北門: "Beimen",
+  十字路: "Shizilu",
   阿里山: "Alishan",
 };
 
@@ -73,6 +75,8 @@ const NOTE_SC: Record<string, string> = {
   "奮起湖站停留約 65 分鐘後續駛": "奋起湖站停留约 65 分钟后续驶",
   "奮起湖站停留至 13:21 續駛往阿里山": "奋起湖站停留至 13:21 续驶往阿里山",
   "奮起湖 13:50 到站、14:31 續駛下山": "奋起湖 13:50 到站、14:31 续驶下山",
+  "開到十字路，沒有到阿里山": "开到十字路，没有到阿里山",
+  從奮起湖發車: "从奋起湖发车",
 };
 
 const NOTE_EN: Record<string, string> = {
@@ -81,6 +85,8 @@ const NOTE_EN: Record<string, string> = {
   "奮起湖站停留約 65 分鐘後續駛": "Stops ~65 min at Fenqihu, then continues",
   "奮起湖站停留至 13:21 續駛往阿里山": "Stops at Fenqihu until 13:21, then continues to Alishan",
   "奮起湖 13:50 到站、14:31 續駛下山": "Arrives Fenqihu 13:50, departs 14:31 downhill",
+  "開到十字路，沒有到阿里山": "Terminates at Shizilu; does not go to Alishan",
+  從奮起湖發車: "Departs from Fenqihu",
 };
 
 export function noteText(note: string | undefined, lang: Lang): string | undefined {
