@@ -38,6 +38,21 @@ html {
   scroll-behavior: smooth;
 }
 
+/* 鍵盤操作時的焦點框：亮底用松綠、深綠底（頂端、頁尾、首頁大圖）用金色，滑鼠點擊不會出現 */
+:focus-visible {
+  outline: 2px solid var(--color-pine);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+header :focus-visible,
+footer :focus-visible,
+.bg-pine-dark :focus-visible,
+.from-pine-dark :focus-visible,
+[role="dialog"] :focus-visible {
+  outline-color: var(--color-gold-soft);
+}
+
 ::selection {
   background: #2f5233;
   color: #faf5e9;

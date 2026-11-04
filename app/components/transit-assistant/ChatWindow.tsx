@@ -279,7 +279,14 @@ export default function ChatWindow({
         </div>
       </div>
 
-      <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto bg-paper px-4 py-4">
+      {/* role="log"：報讀軟體會自動念出新加入的訊息 */}
+      <div
+        ref={scrollRef}
+        role="log"
+        aria-live="polite"
+        aria-label={t.assistantTitle}
+        className="flex-1 space-y-3 overflow-y-auto bg-paper px-4 py-4"
+      >
         {messages.map((m) => (
           <div key={m.id} className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"}`}>
             <div

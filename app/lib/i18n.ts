@@ -198,6 +198,7 @@ export interface UIDict {
   fareCard: string;
   fareUnknown: string;
   doneForToday: string;
+  pastDateNotice: string;
   showFullTimetable: (show: boolean, o: string, d: string, n: number) => string;
 
   railDisclaimer1: string;
@@ -206,6 +207,9 @@ export interface UIDict {
   railDownTitle: string;
   transferTitle: (stop: string) => string;
   transferNone: string;
+  railNextBadge: (stop: string, time: string, minutes: number) => string;
+  railDepartedTag: string;
+  railAllDeparted: string;
   fareRefTitle: string;
   officialTimetable: string;
   onlineBooking: string;
@@ -230,6 +234,10 @@ export interface UIDict {
 
   homeIntroTitle: string;
   homeCardCta: string;
+  homeCardDriveBody: string;
+  homeCardBusBody: string;
+  homeCardRailBody: string;
+  busNotesTitle: string;
 
   mapPageTitle: string;
   mapEmpty: string;
@@ -276,9 +284,9 @@ export const UI: Record<Lang, UIDict> = {
     heroTitle1: "茶香花園民宿",
     heroTitle2: "交通與班次查詢",
     heroP1: "茶香花園民宿鄰近「龍頭站」及「龍頭坪站」。您可搭乘台灣好行阿里山線公車、奮起湖線、達邦線公車，或搭乘阿里山森林鐵路轉乘公車前來。",
-    heroP2: "於龍頭站或龍頭坪站下車後，步行約10～15分鐘即可抵達民宿。以下提供即時班次查詢，並可依照目前時間協助您確認是否來得及搭乘下一班車。",
+    heroP2: "於龍頭站或龍頭坪站下車後，步行約10～15分鐘即可抵達民宿。以下提供班次查詢，並可依照目前時間協助您確認是否來得及搭乘下一班車。",
     navBus: "搭乘公車",
-    navRail: "搭乘主線小火車",
+    navRail: "搭乘森林鐵路",
     navDrive: "開車",
     navMap: "阿里山全區旅遊地圖",
     backHome: "回首頁",
@@ -289,10 +297,10 @@ export const UI: Record<Lang, UIDict> = {
     driveDirections: "國道三號 → 下中埔交流道 → 沿阿里山公路(台18線)往阿里山方向 → 龍頭 → 約抵57.9km處左上方小路約200公尺即可抵達。",
     driveWarning: "⚠ 山區不建議使用導航系統，請勿走嘉130鄉道公田路段，也勿在57.6K左轉英迪格酒店。",
     driveUpTitle: "從嘉義上山方向",
-    driveReturnTitle: "從阿里山、奮起湖、石桌回程下山方向",
+    driveReturnTitle: "從阿里山、奮起湖、石棹回程下山方向",
     driveVideosLabel: "參考行車指引影片：",
     driveVideo1: "抵達民宿前的影片",
-    driveVideo2: "阿里山、奮起湖、石桌、回程方向",
+    driveVideo2: "阿里山、奮起湖、石棹、回程方向",
     driveReturnPhoto1Caption: "從阿里山或奮起湖返回民宿的入口",
     driveReturnPhoto2Caption: "斜坡繼續往上開約200公尺即可到達民宿",
 
@@ -336,6 +344,7 @@ export const UI: Record<Lang, UIDict> = {
     fareCard: "刷卡（悠遊卡等）",
     fareUnknown: "票價請洽車上或官網",
     doneForToday: "今日班次已結束，請參考下方完整時刻表，或改選其他日期。",
+    pastDateNotice: "這個日期已經過去了，請選今天或之後的日期。",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "隱藏" : "顯示"}「${o} → ${d}」完整班次時刻表 (${n} 班)`,
 
     railDisclaimer1: "阿里山森林鐵路目前每日班次較少，且易受養護工程、天候影響調整或停駛。以下時刻整理自官方公告（2025/1/10 生效版本），僅供行程參考，",
@@ -344,6 +353,10 @@ export const UI: Record<Lang, UIDict> = {
     railDownTitle: "下山（阿里山／奮起湖 → 北門 → 嘉義）",
     transferTitle: (stop: string) => `搭小火車到奮起湖後，轉乘公車回${stop}`,
     transferNone: "目前查無銜接得上的班次，請改以嘉義縣公車即時動態或計程車接駁。",
+    railNextBadge: (stop: string, time: string, m: number) =>
+      `下一班・${stop} ${time} 發車（${m <= 0 ? "即將發車" : m < 60 ? `${m} 分鐘後` : `${Math.floor(m / 60)} 小時 ${m % 60} 分後`}）`,
+    railDepartedTag: "已發車",
+    railAllDeparted: "今天這個方向的班次都已發車",
     fareRefTitle: "參考票價",
     officialTimetable: "官方時刻表及票價",
     onlineBooking: "線上訂票系統",
@@ -358,7 +371,7 @@ export const UI: Record<Lang, UIDict> = {
     driveModalClose: "關閉",
 
     eyebrowHowTo: "交通指南",
-    eyebrowBus: "即時查詢",
+    eyebrowBus: "時刻表查詢",
     eyebrowRail: "森林鐵路",
     eyebrowDrive: "自行開車",
     eyebrowContact: "歡迎光臨",
@@ -368,6 +381,10 @@ export const UI: Record<Lang, UIDict> = {
 
     homeIntroTitle: "請選擇您的交通方式",
     homeCardCta: "查看詳情",
+    homeCardDriveBody: "國道三號下中埔交流道，走台18線上山；附易走錯路口的照片與行車影片。",
+    homeCardBusBody: "台灣好行 A／B 線等 4 條路線，依現在時間列出下一班與票價。",
+    homeCardRailBody: "搭森林鐵路到奮起湖，再轉公車到民宿；附上下山時刻與轉乘班次。",
+    busNotesTitle: "搭車須知",
 
     mapPageTitle: "阿里山全區旅遊地圖",
     mapEmpty: "地圖資料尚未建立，請稍後再回來查看。",
@@ -375,7 +392,7 @@ export const UI: Record<Lang, UIDict> = {
     mapZoomClose: "關閉放大檢視",
 
     assistantButtonLabel: "交通小幫手",
-    assistantHelpPrompt: "有需要協助嗎?",
+    assistantHelpPrompt: "有需要協助嗎？",
     assistantTitle: "交通小幫手",
     assistantSubtitle: "詢問班次、上車地點與是否來得及搭乘",
     assistantMinimizeAria: "縮小聊天視窗",
@@ -415,9 +432,9 @@ export const UI: Record<Lang, UIDict> = {
     heroTitle1: "茶香花园民宿",
     heroTitle2: "交通与班次查询",
     heroP1: "茶香花园民宿邻近「龙头站」及「龙头坪站」。您可搭乘台湾好行阿里山线公车、奋起湖线、达邦线公车，或搭乘阿里山森林铁路转乘公车前来。",
-    heroP2: "于龙头站或龙头坪站下车后，步行约10～15分钟即可抵达民宿。以下提供即时班次查询，并可依照目前时间协助您确认是否来得及搭乘下一班车。",
+    heroP2: "于龙头站或龙头坪站下车后，步行约10～15分钟即可抵达民宿。以下提供班次查询，并可依照目前时间协助您确认是否来得及搭乘下一班车。",
     navBus: "搭乘公车",
-    navRail: "搭乘主线小火车",
+    navRail: "搭乘森林铁路",
     navDrive: "开车",
     navMap: "阿里山全区旅游地图",
     backHome: "回首页",
@@ -428,10 +445,10 @@ export const UI: Record<Lang, UIDict> = {
     driveDirections: "国道三号 → 下中埔交流道 → 沿阿里山公路(台18线)往阿里山方向 → 龙头 → 约抵57.9km处左上方小路约200公尺即可抵达。",
     driveWarning: "⚠ 山区不建议使用导航系统，请勿走嘉130乡道公田路段，也勿在57.6K左转英迪格酒店。",
     driveUpTitle: "从嘉义上山方向",
-    driveReturnTitle: "从阿里山、奋起湖、石桌回程下山方向",
+    driveReturnTitle: "从阿里山、奋起湖、石棹回程下山方向",
     driveVideosLabel: "参考行车指引影片：",
     driveVideo1: "抵达民宿前的影片",
-    driveVideo2: "阿里山、奋起湖、石桌、回程方向",
+    driveVideo2: "阿里山、奋起湖、石棹、回程方向",
     driveReturnPhoto1Caption: "从阿里山或奋起湖返回民宿的入口",
     driveReturnPhoto2Caption: "斜坡继续往上开约200公尺即可到达民宿",
 
@@ -475,6 +492,7 @@ export const UI: Record<Lang, UIDict> = {
     fareCard: "刷卡（悠游卡等）",
     fareUnknown: "票价请洽车上或官网",
     doneForToday: "今日班次已结束，请参考下方完整时刻表，或改选其他日期。",
+    pastDateNotice: "这个日期已经过去了，请选今天或之后的日期。",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "隐藏" : "显示"}「${o} → ${d}」完整班次时刻表 (${n} 班)`,
 
     railDisclaimer1: "阿里山森林铁路目前每日班次较少，且易受养护工程、天候影响调整或停驶。以下时刻整理自官方公告（2025/1/10 生效版本），仅供行程参考，",
@@ -483,6 +501,10 @@ export const UI: Record<Lang, UIDict> = {
     railDownTitle: "下山（阿里山／奋起湖 → 北门 → 嘉义）",
     transferTitle: (stop: string) => `搭小火车到奋起湖后，转乘公车回${stop}`,
     transferNone: "目前查无衔接得上的班次，请改以嘉义县公车即时动态或计程车接驳。",
+    railNextBadge: (stop: string, time: string, m: number) =>
+      `下一班・${stop} ${time} 发车（${m <= 0 ? "即将发车" : m < 60 ? `${m} 分钟后` : `${Math.floor(m / 60)} 小时 ${m % 60} 分后`}）`,
+    railDepartedTag: "已发车",
+    railAllDeparted: "今天这个方向的班次都已发车",
     fareRefTitle: "参考票价",
     officialTimetable: "官方时刻表及票价",
     onlineBooking: "线上订票系统",
@@ -497,7 +519,7 @@ export const UI: Record<Lang, UIDict> = {
     driveModalClose: "关闭",
 
     eyebrowHowTo: "交通指南",
-    eyebrowBus: "即时查询",
+    eyebrowBus: "时刻表查询",
     eyebrowRail: "森林铁路",
     eyebrowDrive: "自行开车",
     eyebrowContact: "欢迎光临",
@@ -507,6 +529,10 @@ export const UI: Record<Lang, UIDict> = {
 
     homeIntroTitle: "请选择您的交通方式",
     homeCardCta: "查看详情",
+    homeCardDriveBody: "国道三号下中埔交流道，走台18线上山；附易走错路口的照片与行车影片。",
+    homeCardBusBody: "台湾好行 A／B 线等 4 条路线，依现在时间列出下一班与票价。",
+    homeCardRailBody: "搭森林铁路到奋起湖，再转公车到民宿；附上下山时刻与转乘班次。",
+    busNotesTitle: "搭车须知",
 
     mapPageTitle: "阿里山全区旅游地图",
     mapEmpty: "地图资料尚未建立，请稍后再回来查看。",
@@ -514,7 +540,7 @@ export const UI: Record<Lang, UIDict> = {
     mapZoomClose: "关闭放大检视",
 
     assistantButtonLabel: "交通小助手",
-    assistantHelpPrompt: "有需要帮助吗?",
+    assistantHelpPrompt: "有需要帮助吗？",
     assistantTitle: "交通小助手",
     assistantSubtitle: "询问班次、上车地点与是否来得及搭乘",
     assistantMinimizeAria: "缩小聊天窗口",
@@ -555,9 +581,9 @@ export const UI: Record<Lang, UIDict> = {
     heroTitle2: "Transit & Schedule Finder",
     heroP1:
       `Tea Garden B&B is near "Longtou Station" and "Longtouping Station." You can get here by Taiwan Tourist Shuttle Alishan bus, local Chiayi County buses (Fenqihu Line / Dabang Line), or the Alishan Forest Railway plus a connecting bus.`,
-    heroP2: "After getting off at Longtou Station or Longtouping Station, it's about a 10–15 minute walk to the B&B. Below you'll find a live schedule finder that checks whether you can still catch the next departure.",
+    heroP2: "After getting off at Longtou Station or Longtouping Station, it's about a 10–15 minute walk to the B&B. Below you'll find a schedule finder that checks whether you can still catch the next departure.",
     navBus: "Take the Bus",
-    navRail: "Take the Main-Line Train",
+    navRail: "Take the Forest Railway",
     navDrive: "Driving",
     navMap: "Alishan Area Tourist Map",
     backHome: "Back to Home",
@@ -615,6 +641,7 @@ export const UI: Record<Lang, UIDict> = {
     fareCard: "Card (EasyCard etc.)",
     fareUnknown: "Ask on board or check the official site",
     doneForToday: "No more departures today — see the full timetable below, or pick another date.",
+    pastDateNotice: "That date has already passed. Please pick today or a later date.",
     showFullTimetable: (show: boolean, o: string, d: string, n: number) => `${show ? "Hide" : "Show"} the full timetable for "${o} → ${d}" (${n} trips)`,
 
     railDisclaimer1: "The Alishan Forest Railway currently runs few daily departures and is subject to change or suspension due to maintenance or weather. The schedule below is compiled from the official announcement (effective 2025/1/10) for reference only —",
@@ -623,6 +650,10 @@ export const UI: Record<Lang, UIDict> = {
     railDownTitle: "Downhill (Alishan/Fenqihu → Beimen → Chiayi)",
     transferTitle: (stop: string) => `Taking the train to Fenqihu? Transfer to a bus back to ${stop}`,
     transferNone: "No connecting departures found right now — please use Chiayi County Bus real-time tracking or a taxi transfer instead.",
+    railNextBadge: (stop: string, time: string, m: number) =>
+      `Next train · leaves ${stop} at ${time} (${m <= 0 ? "departing now" : m < 60 ? `in ${m} min` : `in ${Math.floor(m / 60)} h ${m % 60} min`})`,
+    railDepartedTag: "Departed",
+    railAllDeparted: "All of today's trains in this direction have departed",
     fareRefTitle: "Reference Fares",
     officialTimetable: "Official timetable & fares",
     onlineBooking: "Online booking system",
@@ -637,7 +668,7 @@ export const UI: Record<Lang, UIDict> = {
     driveModalClose: "Close",
 
     eyebrowHowTo: "Getting Here",
-    eyebrowBus: "Live Lookup",
+    eyebrowBus: "Timetable Lookup",
     eyebrowRail: "Forest Railway",
     eyebrowDrive: "Driving",
     eyebrowContact: "Welcome",
@@ -647,6 +678,10 @@ export const UI: Record<Lang, UIDict> = {
 
     homeIntroTitle: "Choose how you're getting here",
     homeCardCta: "View details",
+    homeCardDriveBody: "Take Freeway 3 to Zhongpu, then Route 18 uphill. Includes photos of tricky junctions and driving videos.",
+    homeCardBusBody: "Choose from four bus routes, including Taiwan Tourist Shuttle Routes A and B. Check upcoming departures and fares.",
+    homeCardRailBody: "Ride the Forest Railway to Fenqihu, then transfer by bus. Includes timetables and connecting buses.",
+    busNotesTitle: "Before you ride",
 
     mapPageTitle: "Alishan Area Tourist Map",
     mapEmpty: "Map data hasn't been published yet — please check back later.",

@@ -21,7 +21,7 @@ const notoSerif = Noto_Serif_TC({
 export const metadata: Metadata = {
   title: "茶香花園民宿｜交通與班次查詢",
   description:
-    "嘉義阿里山茶香花園民宿交通指南：台灣好行阿里山線公車即時可搭班次查詢、阿里山森林鐵路時刻與票價。",
+    "嘉義阿里山茶香花園民宿交通指南：台灣好行阿里山線公車可搭班次查詢、阿里山森林鐵路時刻與票價。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

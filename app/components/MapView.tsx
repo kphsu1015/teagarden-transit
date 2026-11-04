@@ -23,21 +23,34 @@ export default function MapView({ tripMap }: { tripMap: MapViewData | null }) {
     scrollTop: number;
     moved: boolean;
   } | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  // 在點開地圖的當下記住焦點位置（關閉鈕的 autoFocus 會先搶走焦點）
+  const triggerRef = useRef<HTMLElement | null>(null);
+  // 只看「有沒有打開」，第一層和第二層放大互相切換時不會把焦點還回小圖
+  const isOpen = zoomLevel > 0;
 
   useEffect(() => {
-    if (zoomLevel === 0) return;
+    if (!isOpen) return;
 
+    // 關閉後把焦點還給地圖小圖按鈕
+    const trigger = triggerRef.current;
     document.body.style.overflow = "hidden";
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") setZoomLevel(0);
+      // 放大檢視只有關閉鈕可以操作，Tab 鎖在它上面
+      if (e.key === "Tab") {
+        e.preventDefault();
+        closeRef.current?.focus();
+      }
     }
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
+      trigger?.focus();
     };
-  }, [zoomLevel]);
+  }, [isOpen]);
 
   function handlePointerDown(e: React.PointerEvent<HTMLImageElement>) {
     if (zoomLevel !== 2) return;
@@ -96,27 +109,31 @@ export default function MapView({ tripMap }: { tripMap: MapViewData | null }) {
       <h1 className="font-serif text-3xl text-ink">{t.mapPageTitle}</h1>
       <p className="mt-2 text-xs text-ink-soft/70">{t.mapSource}</p>
 
-      <div className="mt-6 w-full overflow-hidden rounded-xl border border-line">
+      <button
+        type="button"
+        onClick={(e) => {
+          triggerRef.current = e.currentTarget;
+          setZoomLevel(1);
+        }}
+        className="mt-6 block w-full cursor-zoom-in overflow-hidden rounded-xl border border-line"
+      >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={tripMap.imageUrl}
-          alt={t.mapPageTitle}
-          onClick={() => setZoomLevel(1)}
-          className="block h-auto w-full cursor-zoom-in"
-        />
-      </div>
+        <img src={tripMap.imageUrl} alt={t.mapPageTitle} className="block h-auto w-full" />
+      </button>
 
       {zoomLevel > 0 && (
         <div
           role="dialog"
           aria-modal="true"
           onClick={() => setZoomLevel(0)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/85 p-4"
         >
           <button
             type="button"
             onClick={() => setZoomLevel(0)}
+            ref={closeRef}
             aria-label={t.mapZoomClose}
+            autoFocus
             className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-2xl leading-none text-white transition-colors hover:bg-white/20"
           >
             ×

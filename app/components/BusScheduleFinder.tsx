@@ -62,6 +62,9 @@ export default function BusScheduleFinder() {
     [allTrips, now, isToday]
   );
 
+  // 日期格式都是 YYYY-MM-DD，直接比字串就能分前後；清空日期或選到過去（例如手誤打成 0005 年）都不列班次
+  const isPastDate = !date || date < now.dateISO;
+
   function swap() {
     setOrigin(dest);
     setDest(origin);
@@ -127,6 +130,8 @@ export default function BusScheduleFinder() {
         <input
           type="date"
           value={date}
+          min={now.dateISO}
+          aria-invalid={isPastDate}
           onChange={(e) => setDate(e.target.value)}
           className="w-full rounded-lg border border-line bg-white px-3 py-2 text-ink focus:border-pine focus:outline-none focus:ring-1 focus:ring-pine"
         />
@@ -137,18 +142,25 @@ export default function BusScheduleFinder() {
         {t.nowLabelPrefix}{" "}
         <span className="font-mono font-medium text-ink">{now.label}</span>
         {"　"}
-        {isToday ? t.showingToday : t.showingOtherDate(date, dayType === "weekend")}
+        {isToday ? t.showingToday : isPastDate ? null : t.showingOtherDate(date, dayType === "weekend")}
       </p>
 
       {/* 結果 */}
       <div className="mt-6">
-        {origin === dest ? (
+        {isPastDate ? (
+          <p role="alert" className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">{t.pastDateNotice}</p>
+        ) : origin === dest ? (
           <p className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">{t.pickDifferentStops}</p>
         ) : allTrips.length === 0 ? (
           <p className="rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800">
             {t.noDirectTrips(sn(origin), sn(dest))}
           </p>
         ) : nextTrips.length > 0 ? (
+          <>
+          {/* 延誤提醒只在列表上方講一次，不再每列重複紅字 */}
+          {isToday && nextTrips.some((tr) => tr.tripOriginName !== origin) && (
+            <p className="mb-2 text-xs leading-5 text-ink-soft">{t.passingStopDelayNotice}</p>
+          )}
           <ul className="divide-y divide-paper-dim">
             {nextTrips.map((trip, i) => {
               const isOriginStop = trip.tripOriginName === origin;
@@ -170,19 +182,16 @@ export default function BusScheduleFinder() {
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   {isToday && (
-                    <span className="flex flex-col items-end gap-0.5">
-                      <span
-                        className={`rounded-full px-2 py-0.5 text-xs ${
-                          i === 0 ? "bg-pine/15 text-pine-dark" : "bg-paper-dim text-ink-soft"
-                        }`}
-                      >
-                        {minutesToNowLabel(trip.departMinutes - now.minutes, isOriginStop)}
-                      </span>
-                      {!isOriginStop && <span className="text-xs text-red-600">{t.passingStopDelayNotice}</span>}
+                    <span
+                      className={`rounded-full px-2 py-0.5 text-xs ${
+                        i === 0 ? "bg-pine/15 text-pine-dark" : "bg-paper-dim text-ink-soft"
+                      }`}
+                    >
+                      {minutesToNowLabel(trip.departMinutes - now.minutes, isOriginStop)}
                     </span>
                   )}
                   {trip.fareFull != null ? (
-                    <span className="text-right text-ink-soft">
+                    <span className="text-right text-xs leading-5 text-ink-soft">
                       <span className="block">
                         {t.fareCash}　{t.fareFull} NT${trip.fareFull}／{t.fareHalf} NT${trip.fareHalf}
                       </span>
@@ -193,13 +202,14 @@ export default function BusScheduleFinder() {
                       )}
                     </span>
                   ) : (
-                    <span className="text-ink-soft">{t.fareUnknown}</span>
+                    <span className="text-xs text-ink-soft">{t.fareUnknown}</span>
                   )}
                 </div>
               </li>
               );
             })}
           </ul>
+          </>
         ) : (
           <p className="rounded-lg bg-paper-dim px-4 py-3 text-sm text-ink-soft">{t.doneForToday}</p>
         )}
@@ -209,17 +219,25 @@ export default function BusScheduleFinder() {
       {isToday && (
         <div className="mt-6 border-t border-paper-dim pt-4">
           <button
+            type="button"
             onClick={() => setShowAll((v) => !v)}
-            className="text-sm font-medium text-pine hover:underline"
+            aria-expanded={showAll}
+            className="text-left text-sm font-medium text-pine hover:underline"
           >
             {t.showFullTimetable(showAll, sn(origin), sn(dest), allTrips.length)}
           </button>
           {showAll && allTrips.length > 0 && (
-            <ul className="mt-3 grid grid-cols-1 gap-x-6 gap-y-1 text-sm text-ink-soft sm:grid-cols-2">
+            <ul className="mt-3 grid grid-cols-1 gap-x-8 text-sm sm:grid-cols-2">
               {allTrips.map((trip, i) => (
-                <li key={i} className="font-mono">
-                  [{rl(trip.routeLabel)}] {trip.departTime}
-                  {trip.arriveTime ? ` → ${trip.arriveTime}` : ""}
+                <li
+                  key={i}
+                  className="flex items-baseline justify-between gap-3 border-b border-paper-dim py-1.5"
+                >
+                  <span className="font-mono tabular-nums text-ink">
+                    {trip.departTime}
+                    {trip.arriveTime && <span className="text-ink-soft"> → {trip.arriveTime}</span>}
+                  </span>
+                  <span className="truncate text-xs text-ink-soft">{rl(trip.routeLabel)}</span>
                 </li>
               ))}
             </ul>

@@ -17,7 +17,7 @@ export default function TransitTabs() {
   const { t } = useLanguage();
 
   return (
-    <nav className="sticky top-[57px] z-30 border-b border-line bg-paper/95 backdrop-blur">
+    <nav className="sticky top-[var(--header-h,57px)] z-30 border-b border-line bg-paper/95 backdrop-blur">
       <div className="mx-auto flex max-w-4xl gap-1 overflow-x-auto px-4 sm:px-6">
         {TABS.map((tab) => {
           const active = pathname === tab.href;

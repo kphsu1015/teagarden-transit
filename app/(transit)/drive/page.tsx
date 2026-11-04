@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { useLanguage } from "../../context/LanguageContext";
 import { MapPinIcon } from "../../components/icons";
@@ -13,15 +13,6 @@ interface PhotoInfo {
   warning?: boolean;
 }
 
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.25em] text-gold">
-      <span className="h-px w-6 bg-gold" />
-      {children}
-    </p>
-  );
-}
-
 function WarningPhoto({ src, alt, caption, onOpen }: PhotoInfo & { onOpen: (photo: PhotoInfo) => void }) {
   return (
     <button
@@ -31,14 +22,14 @@ function WarningPhoto({ src, alt, caption, onOpen }: PhotoInfo & { onOpen: (phot
     >
       <Image
         src={src}
-        alt={alt}
+        alt=""
         fill
         sizes="(max-width: 640px) 100vw, 300px"
         className="object-cover transition-transform duration-200 group-hover:scale-105"
       />
-      <figcaption className="absolute inset-x-0 bottom-0 bg-amber-800/85 px-2 py-1.5 text-xs font-medium leading-4 tracking-tight text-white">
+      <span className="absolute inset-x-0 bottom-0 block bg-amber-800/85 px-2 py-1.5 text-xs font-medium leading-4 tracking-tight text-white">
         ⚠ {caption}
-      </figcaption>
+      </span>
     </button>
   );
 }
@@ -52,14 +43,14 @@ function InfoPhoto({ src, alt, caption, onOpen }: PhotoInfo & { onOpen: (photo: 
     >
       <Image
         src={src}
-        alt={alt}
+        alt=""
         fill
         sizes="(max-width: 640px) 100vw, 400px"
         className="object-cover transition-transform duration-200 group-hover:scale-105"
       />
-      <figcaption className="absolute inset-x-0 bottom-0 bg-pine-dark/85 px-2 py-1.5 text-xs font-medium leading-4 tracking-tight text-white">
+      <span className="absolute inset-x-0 bottom-0 block bg-pine-dark/85 px-2 py-1.5 text-xs font-medium leading-4 tracking-tight text-white">
         {caption}
-      </figcaption>
+      </span>
     </button>
   );
 }
@@ -68,26 +59,41 @@ export default function DrivePage() {
   const { t, lang } = useLanguage();
   const address = ADDRESS[lang];
   const [openPhoto, setOpenPhoto] = useState<PhotoInfo | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  // 在點開照片的當下記住是哪張照片（關閉鈕的 autoFocus 會先搶走焦點，不能等到 effect 才記）
+  const triggerRef = useRef<HTMLElement | null>(null);
+  function openPhotoFrom(photo: PhotoInfo) {
+    triggerRef.current = document.activeElement as HTMLElement | null;
+    setOpenPhoto(photo);
+  }
+  const isOpen = openPhoto !== null;
 
   useEffect(() => {
-    if (!openPhoto) return;
+    if (!isOpen) return;
 
+    // 關閉後把鍵盤焦點還給原本那張照片
+    const trigger = triggerRef.current;
     document.body.style.overflow = "hidden";
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === "Escape") setOpenPhoto(null);
+      // 放大檢視只有一個可操作的按鈕，Tab 鎖在關閉鈕上，不會跑到被遮住的頁面
+      if (e.key === "Tab") {
+        e.preventDefault();
+        closeRef.current?.focus();
+      }
     }
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
+      trigger?.focus();
     };
-  }, [openPhoto]);
+  }, [isOpen]);
 
   return (
     <section className="mx-auto max-w-4xl px-6 py-12 md:py-16">
-      <Eyebrow>{t.eyebrowDrive}</Eyebrow>
-      <h1 className="mt-3 font-serif text-3xl text-ink">{t.driveTitle}</h1>
+      <h1 className="font-serif text-3xl text-ink">{t.driveTitle}</h1>
 
       <p className="mt-4 text-sm leading-6 text-ink-soft">
         {t.driveAddressLabel}
@@ -100,7 +106,7 @@ export default function DrivePage() {
 
       <p className="mt-4 text-sm font-medium text-ink-soft">{t.driveVideosLabel}</p>
       <a
-        href="https://reurl.cc/969l0d"
+        href="https://www.youtube.com/watch?v=9xLoKk5hU3k"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-1 inline-block text-sm text-pine underline decoration-gold-soft decoration-2 underline-offset-4 hover:text-pine-dark"
@@ -113,19 +119,19 @@ export default function DrivePage() {
           src="/images/drive-avoid-gongtian.png"
           alt="Shizhuo / Longmei / Alishan junction"
           caption={t.driveCaption1}
-          onOpen={setOpenPhoto}
+          onOpen={openPhotoFrom}
         />
         <WarningPhoto
           src="/images/drive-avoid-indigo.png"
           alt="Hotel Indigo junction"
           caption={t.driveCaption2}
-          onOpen={setOpenPhoto}
+          onOpen={openPhotoFrom}
         />
         <WarningPhoto
           src="/images/drive-slope-up.png"
           alt="Slope up to the B&B at 57.9km"
           caption={t.driveCaption3}
-          onOpen={setOpenPhoto}
+          onOpen={openPhotoFrom}
         />
       </div>
 
@@ -133,7 +139,7 @@ export default function DrivePage() {
 
       <p className="mt-4 text-sm font-medium text-ink-soft">{t.driveVideosLabel}</p>
       <a
-        href="https://reurl.cc/r3Vekx"
+        href="https://www.youtube.com/watch?v=dJhemynuN0U"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-1 inline-block text-sm text-pine underline decoration-gold-soft decoration-2 underline-offset-4 hover:text-pine-dark"
@@ -146,13 +152,13 @@ export default function DrivePage() {
           src="/images/drive-return-entrance.jpg"
           alt="Tea Garden B&B entrance sign when returning from Alishan or Fenqihu"
           caption={t.driveReturnPhoto1Caption}
-          onOpen={setOpenPhoto}
+          onOpen={openPhotoFrom}
         />
         <InfoPhoto
           src="/images/drive-return-slope.jpg"
           alt="Slope leading up to the B&B, about 200m from the entrance"
           caption={t.driveReturnPhoto2Caption}
-          onOpen={setOpenPhoto}
+          onOpen={openPhotoFrom}
         />
       </div>
 
@@ -171,12 +177,15 @@ export default function DrivePage() {
           role="dialog"
           aria-modal="true"
           onClick={() => setOpenPhoto(null)}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
+          aria-label={openPhoto.caption}
+          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/85 p-4"
         >
           <button
             type="button"
             onClick={() => setOpenPhoto(null)}
+            ref={closeRef}
             aria-label={t.mapZoomClose}
+            autoFocus
             className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-2xl leading-none text-white transition-colors hover:bg-white/20"
           >
             ×
@@ -189,7 +198,7 @@ export default function DrivePage() {
             <div className="relative h-[70vh] w-full">
               <Image
                 src={openPhoto.src}
-                alt={openPhoto.alt}
+                alt={openPhoto.caption}
                 fill
                 sizes="(max-width: 768px) 100vw, 768px"
                 className="object-contain"

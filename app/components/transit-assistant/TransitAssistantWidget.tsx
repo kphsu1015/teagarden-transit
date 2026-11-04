@@ -65,6 +65,15 @@ export default function TransitAssistantWidget() {
     saveSession({ messages, conversationState });
   }, [hydrated, messages, conversationState]);
 
+  // 往下捲動後收起「有需要協助嗎？」泡泡、手機上縮小按鈕，避免蓋住班次列右邊的票價；回到頂端再出現
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 120);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   function clearConversation() {
     setMessages([]);
     setConversationState(EMPTY_CONVERSATION_STATE);
@@ -79,17 +88,24 @@ export default function TransitAssistantWidget() {
 
   if (panelState === "closed") {
     return (
-      <div className="fixed bottom-5 right-5 z-[70] flex flex-col items-end gap-2">
-        <span className="rounded-full bg-pine-dark px-3 py-1.5 text-xs font-medium text-paper shadow-md">
+      <div className="fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-2 sm:bottom-5 sm:right-5">
+        <span
+          aria-hidden={scrolled}
+          className={`rounded-full bg-pine-dark px-3 py-1.5 text-xs font-medium text-paper shadow-md transition-all duration-200 ${
+            scrolled ? "pointer-events-none translate-y-1 opacity-0" : "opacity-100"
+          }`}
+        >
           {t.assistantHelpPrompt}
         </span>
         <button
           type="button"
           onClick={() => setPanelState("open")}
           aria-label={t.assistantButtonLabel}
-          className="flex h-14 w-14 items-center justify-center rounded-full bg-pine text-paper shadow-lg shadow-pine-dark/40 transition hover:bg-pine-dark focus:outline-none focus:ring-2 focus:ring-gold-soft sm:h-16 sm:w-16"
+          className={`flex items-center justify-center rounded-full bg-pine text-paper shadow-lg shadow-pine-dark/40 transition-all hover:bg-pine-dark focus:outline-none focus:ring-2 focus:ring-gold-soft sm:h-16 sm:w-16 ${
+            scrolled ? "h-11 w-11" : "h-14 w-14"
+          }`}
         >
-          <ChatIcon className="h-7 w-7" />
+          <ChatIcon className={scrolled ? "h-5 w-5 sm:h-7 sm:w-7" : "h-7 w-7"} />
         </button>
       </div>
     );

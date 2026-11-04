@@ -8,7 +8,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-pine-dark">
-      <div className="mx-auto max-w-5xl px-6 py-10">
+      <div className="mx-auto max-w-5xl px-6 pb-24 pt-10 sm:pb-10">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="font-serif text-base tracking-[0.3em] text-paper">{t.siteTitle}</p>
@@ -24,7 +24,10 @@ export default function Footer() {
             <Link href="/drive" className="text-paper/80 hover:text-gold-soft">
               {t.navDrive}
             </Link>
-            <Link href="/" className="text-paper/80 hover:text-gold-soft">
+            <Link href="/map" className="text-paper/80 hover:text-gold-soft">
+              {t.navMap}
+            </Link>
+            <Link href="/"className="text-paper/80 hover:text-gold-soft">
               {t.backHome}
             </Link>
           </nav>

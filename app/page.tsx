@@ -1,21 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { CarIcon, BusIcon, MapIcon, TrainIcon, MapPinIcon, WalkIcon } from "./components/icons";
+import { CarIcon, BusIcon, MapIcon, TrainIcon, MapPinIcon, WalkIcon, LineIcon } from "./components/icons";
 import { useLanguage } from "./context/LanguageContext";
-import { MAP_URL } from "./lib/site";
-
-function Eyebrow({ children }: { children: React.ReactNode }) {
-  return (
-    <p className="inline-flex items-center gap-2 text-xs font-medium tracking-[0.25em] text-gold">
-      <span className="h-px w-6 bg-gold" />
-      {children}
-    </p>
-  );
-}
+import { MAP_URL, ADDRESS, LINE_CONTACT_URL } from "./lib/site";
 
 export default function Home() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
 
   const modes = [
     {
@@ -23,21 +14,21 @@ export default function Home() {
       icon: <CarIcon className="h-6 w-6" />,
       iconWrap: "bg-[#d9c6be] text-[#4a332c]",
       title: t.driveTitle,
-      body: t.driveDirections,
+      body: t.homeCardDriveBody,
     },
     {
       href: "/bus",
       icon: <BusIcon className="h-6 w-6" />,
       iconWrap: "bg-gold text-pine-dark",
       title: t.busCardTitle,
-      body: t.busSectionTitle,
+      body: t.homeCardBusBody,
     },
     {
       href: "/rail",
       icon: <TrainIcon className="h-6 w-6" />,
       iconWrap: "bg-[#9cae93] text-[#243422]",
       title: t.railCardTitle,
-      body: t.railSectionTitle,
+      body: t.homeCardRailBody,
     },
   ];
 
@@ -54,43 +45,37 @@ export default function Home() {
         />
 
         <div className="relative mx-auto max-w-4xl px-6 pb-24 pt-14 md:pb-32 md:pt-20">
-          <p className="inline-flex items-center gap-2 rounded-full border border-gold-soft/40 bg-white/5 px-4 py-1.5 text-xs tracking-[0.3em] text-gold-soft">
-            {t.heroKicker}
-          </p>
-          <h1 className="mt-6 font-serif text-4xl leading-tight text-paper md:text-6xl">
-            <span className="text-gold-soft">{t.heroTitle2}</span>
+          <h1 className="font-serif text-4xl leading-tight text-paper md:text-6xl">
+            <span className="block">{t.heroTitle1}</span>
+            <span className="mt-2 block text-2xl text-gold-soft md:mt-3 md:text-4xl">{t.heroTitle2}</span>
           </h1>
           <p className="mt-6 max-w-xl leading-8 text-paper/80">{t.heroP1}</p>
           <p className="mt-4 max-w-xl leading-8 text-paper/70">{t.heroP2}</p>
-          <div className="mt-9 flex flex-wrap gap-3">
+          {/* 主要：搭公車（大多數客人的搭法）用金色實心大按鈕；其他三種改次要樣式，原本的顏色保留在小圓圖示上 */}
+          <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
             <Link
               href="/bus"
-              className="inline-flex items-center gap-2 rounded-full bg-gold px-6 py-3 text-sm font-semibold text-pine-dark shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-gold-soft"
+              className="inline-flex items-center gap-2.5 rounded-full bg-gold px-7 py-3.5 text-base font-semibold text-pine-dark shadow-lg shadow-black/25 transition-transform hover:-translate-y-0.5 hover:bg-gold-soft"
             >
-              <BusIcon className="h-4 w-4" />
+              <BusIcon className="h-5 w-5" />
               {t.navBus}
             </Link>
-            <Link
-              href="/rail"
-              className="inline-flex items-center gap-2 rounded-full bg-[#9cae93] px-6 py-3 text-sm font-semibold text-[#243422] shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#8ca083]"
-            >
-              <TrainIcon className="h-4 w-4" />
-              {t.navRail}
-            </Link>
-            <Link
-              href="/drive"
-              className="inline-flex items-center gap-2 rounded-full bg-[#d9c6be] px-6 py-3 text-sm font-semibold text-[#4a332c] shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#cdb6ac]"
-            >
-              <CarIcon className="h-4 w-4" />
-              {t.navDrive}
-            </Link>
-            <Link
-              href="/map"
-              className="inline-flex items-center gap-2 rounded-full bg-[#bedac4] px-6 py-3 text-sm font-semibold text-[#1f3d2a] shadow-lg shadow-black/20 transition-transform hover:-translate-y-0.5 hover:bg-[#aacbb2]"
-            >
-              <MapIcon className="h-4 w-4" />
-              {t.navMap}
-            </Link>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { href: "/rail", icon: <TrainIcon className="h-3.5 w-3.5" />, chip: "bg-[#9cae93] text-[#243422]", label: t.navRail },
+                { href: "/drive", icon: <CarIcon className="h-3.5 w-3.5" />, chip: "bg-[#d9c6be] text-[#4a332c]", label: t.navDrive },
+                { href: "/map", icon: <MapIcon className="h-3.5 w-3.5" />, chip: "bg-[#bedac4] text-[#1f3d2a]", label: t.navMap },
+              ].map((b) => (
+                <Link
+                  key={b.href}
+                  href={b.href}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 py-1.5 pl-1.5 pr-4 text-sm font-medium text-paper/90 transition-colors hover:border-white/35 hover:bg-white/10 hover:text-paper"
+                >
+                  <span className={`flex h-7 w-7 items-center justify-center rounded-full ${b.chip}`}>{b.icon}</span>
+                  {b.label}
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -127,8 +112,7 @@ export default function Home() {
 
       {/* 怎麼來：三個分頁入口卡片 */}
       <section className="mx-auto max-w-4xl px-6 pb-4 pt-16 md:pt-20">
-        <Eyebrow>{t.eyebrowHowTo}</Eyebrow>
-        <h2 className="mt-3 font-serif text-3xl text-ink">{t.homeIntroTitle}</h2>
+        <h2 className="font-serif text-3xl text-ink">{t.homeIntroTitle}</h2>
         <div className="mt-8 grid gap-5 sm:grid-cols-3">
           {modes.map((m) => (
             <Link
@@ -140,8 +124,8 @@ export default function Home() {
                 {m.icon}
               </span>
               <p className="mt-4 font-serif text-lg text-ink">{m.title}</p>
-              <p className="mt-2 line-clamp-2 text-sm leading-6 text-ink-soft">{m.body}</p>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-pine transition-transform group-hover:translate-x-1">
+              <p className="mt-2 text-sm leading-6 text-ink-soft">{m.body}</p>
+              <span className="mt-auto inline-flex pt-4 items-center gap-1 text-sm font-medium text-pine transition-transform group-hover:translate-x-1">
                 {t.homeCardCta} →
               </span>
             </Link>
@@ -151,8 +135,7 @@ export default function Home() {
 
       {/* 聯絡與資料來源 */}
       <section className="mx-auto max-w-4xl px-6 py-16">
-        <Eyebrow>{t.eyebrowContact}</Eyebrow>
-        <h2 className="mt-3 font-serif text-3xl text-ink">{t.contactTitle}</h2>
+        <h2 className="font-serif text-3xl text-ink">{t.contactTitle}</h2>
         <div className="relative mt-8 overflow-hidden rounded-2xl bg-gradient-to-br from-pine-dark to-pine p-8">
           <div
             className="pointer-events-none absolute inset-0 opacity-30"
@@ -160,16 +143,34 @@ export default function Home() {
               backgroundImage: "radial-gradient(circle at 90% 10%, rgba(216,184,118,0.3), transparent 45%)",
             }}
           />
-          <div className="relative flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-end">
-            <a
-              href={MAP_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex shrink-0 items-center gap-2 self-start rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-pine-dark hover:bg-gold-soft sm:self-auto"
-            >
-              <MapPinIcon className="h-4 w-4" />
-              {t.openInMaps}
-            </a>
+          <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <p className="font-serif text-xl text-paper">{t.heroTitle1}</p>
+              <p className="mt-2 flex items-start gap-2 text-sm leading-6 text-paper/80">
+                <MapPinIcon className="mt-1 h-4 w-4 shrink-0 text-gold-soft" />
+                <span>{ADDRESS[lang]}</span>
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <a
+                href={MAP_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-pine-dark hover:bg-gold-soft"
+              >
+                <MapPinIcon className="h-4 w-4" />
+                {t.openInMaps}
+              </a>
+              <a
+                href={LINE_CONTACT_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex shrink-0 items-center gap-2 rounded-full border border-paper/40 px-5 py-2.5 text-sm font-semibold text-paper hover:bg-white/10"
+              >
+                <LineIcon className="h-4 w-4" />
+                {t.assistantFallbackLineLabel}
+              </a>
+            </div>
           </div>
         </div>
       </section>
