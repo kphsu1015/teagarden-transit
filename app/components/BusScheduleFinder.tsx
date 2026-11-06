@@ -74,7 +74,7 @@ export default function BusScheduleFinder() {
     return (
       <div className="rounded-2xl border border-line bg-white p-5 shadow-sm md:p-8">
         <p className="mb-4 text-xs text-ink-soft">{t.finderIntro}</p>
-        <div className="h-64 animate-pulse rounded-lg bg-paper-dim" />
+        <div className="h-64 animate-pulse rounded-lg bg-surface-muted" />
       </div>
     );
   }
@@ -103,7 +103,7 @@ export default function BusScheduleFinder() {
         <button
           onClick={swap}
           aria-label={t.swapAria}
-          className="mx-auto flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink-soft hover:bg-paper-dim"
+          className="mx-auto flex h-10 w-10 items-center justify-center rounded-full border border-line text-ink-soft hover:bg-surface-muted"
         >
           ⇄
         </button>
@@ -161,7 +161,7 @@ export default function BusScheduleFinder() {
           {isToday && nextTrips.some((tr) => tr.tripOriginName !== origin) && (
             <p className="mb-2 text-xs leading-5 text-ink-soft">{t.passingStopDelayNotice}</p>
           )}
-          <ul className="divide-y divide-paper-dim">
+          <ul className="divide-y divide-line">
             {nextTrips.map((trip, i) => {
               const isOriginStop = trip.tripOriginName === origin;
               return (
@@ -184,7 +184,7 @@ export default function BusScheduleFinder() {
                   {isToday && (
                     <span
                       className={`rounded-full px-2 py-0.5 text-xs ${
-                        i === 0 ? "bg-pine/15 text-pine-dark" : "bg-paper-dim text-ink-soft"
+                        i === 0 ? "bg-pine/15 text-pine-dark" : "bg-surface-muted text-ink-soft"
                       }`}
                     >
                       {minutesToNowLabel(trip.departMinutes - now.minutes, isOriginStop)}
@@ -211,13 +211,13 @@ export default function BusScheduleFinder() {
           </ul>
           </>
         ) : (
-          <p className="rounded-lg bg-paper-dim px-4 py-3 text-sm text-ink-soft">{t.doneForToday}</p>
+          <p className="rounded-lg bg-surface-muted px-4 py-3 text-sm text-ink-soft">{t.doneForToday}</p>
         )}
       </div>
 
       {/* 完整時刻表（僅今天模式需要，其他日期已直接顯示全部） */}
       {isToday && (
-        <div className="mt-6 border-t border-paper-dim pt-4">
+        <div className="mt-6 border-t border-line pt-4">
           <button
             type="button"
             onClick={() => setShowAll((v) => !v)}
@@ -231,7 +231,7 @@ export default function BusScheduleFinder() {
               {allTrips.map((trip, i) => (
                 <li
                   key={i}
-                  className="flex items-baseline justify-between gap-3 border-b border-paper-dim py-1.5"
+                  className="flex items-baseline justify-between gap-3 border-b border-line py-1.5"
                 >
                   <span className="font-mono tabular-nums text-ink">
                     {trip.departTime}

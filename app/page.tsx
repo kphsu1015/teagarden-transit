@@ -19,7 +19,7 @@ export default function Home() {
     {
       href: "/bus",
       icon: <BusIcon className="h-6 w-6" />,
-      iconWrap: "bg-gold text-pine-dark",
+      iconWrap: "bg-gold text-gold-ink",
       title: t.busCardTitle,
       body: t.homeCardBusBody,
     },
@@ -45,17 +45,17 @@ export default function Home() {
         />
 
         <div className="relative mx-auto max-w-4xl px-6 pb-24 pt-14 md:pb-32 md:pt-20">
-          <h1 className="font-serif text-4xl leading-tight text-paper md:text-6xl">
+          <h1 className="font-serif text-4xl leading-tight text-on-dark md:text-6xl">
             <span className="block">{t.heroTitle1}</span>
             <span className="mt-2 block text-2xl text-gold-soft md:mt-3 md:text-4xl">{t.heroTitle2}</span>
           </h1>
-          <p className="mt-6 max-w-xl leading-8 text-paper/80">{t.heroP1}</p>
-          <p className="mt-4 max-w-xl leading-8 text-paper/70">{t.heroP2}</p>
+          <p className="mt-6 max-w-xl leading-8 text-on-dark/80">{t.heroP1}</p>
+          <p className="mt-4 max-w-xl leading-8 text-on-dark/70">{t.heroP2}</p>
           {/* 主要：搭公車（大多數客人的搭法）用金色實心大按鈕；其他三種改次要樣式，原本的顏色保留在小圓圖示上 */}
           <div className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:flex-wrap sm:items-center">
             <Link
               href="/bus"
-              className="inline-flex items-center gap-2.5 rounded-full bg-gold px-7 py-3.5 text-base font-semibold text-pine-dark shadow-lg shadow-black/25 transition-transform hover:-translate-y-0.5 hover:bg-gold-soft"
+              className="inline-flex items-center gap-2.5 rounded-full bg-gold px-7 py-3.5 text-base font-semibold text-gold-ink shadow-lg shadow-black/25 transition-transform hover:-translate-y-0.5 hover:bg-gold-soft"
             >
               <BusIcon className="h-5 w-5" />
               {t.navBus}
@@ -69,7 +69,7 @@ export default function Home() {
                 <Link
                   key={b.href}
                   href={b.href}
-                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 py-1.5 pl-1.5 pr-4 text-sm font-medium text-paper/90 transition-colors hover:border-white/35 hover:bg-white/10 hover:text-paper"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 py-1.5 pl-1.5 pr-4 text-sm font-medium text-on-dark/90 transition-colors hover:border-white/35 hover:bg-white/10 hover:text-on-dark"
                 >
                   <span className={`flex h-7 w-7 items-center justify-center rounded-full ${b.chip}`}>{b.icon}</span>
                   {b.label}
@@ -81,7 +81,7 @@ export default function Home() {
 
         {/* 山巒剪影裝飾，銜接下方內容區塊 */}
         <svg
-          className="absolute inset-x-0 bottom-0 h-24 w-full text-paper md:h-32"
+          className="absolute inset-x-0 bottom-0 h-24 w-full text-surface md:h-32"
           viewBox="0 0 1440 220"
           preserveAspectRatio="none"
           aria-hidden
@@ -145,8 +145,8 @@ export default function Home() {
           />
           <div className="relative flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="font-serif text-xl text-paper">{t.heroTitle1}</p>
-              <p className="mt-2 flex items-start gap-2 text-sm leading-6 text-paper/80">
+              <p className="font-serif text-xl text-on-dark">{t.heroTitle1}</p>
+              <p className="mt-2 flex items-start gap-2 text-sm leading-6 text-on-dark/80">
                 <MapPinIcon className="mt-1 h-4 w-4 shrink-0 text-gold-soft" />
                 <span>{ADDRESS[lang]}</span>
               </p>
@@ -156,7 +156,7 @@ export default function Home() {
                 href={MAP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-pine-dark hover:bg-gold-soft"
+                className="inline-flex shrink-0 items-center gap-2 rounded-full bg-gold px-5 py-2.5 text-sm font-semibold text-gold-ink hover:bg-gold-soft"
               >
                 <MapPinIcon className="h-4 w-4" />
                 {t.openInMaps}
@@ -165,7 +165,7 @@ export default function Home() {
                 href={LINE_CONTACT_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex shrink-0 items-center gap-2 rounded-full border border-paper/40 px-5 py-2.5 text-sm font-semibold text-paper hover:bg-white/10"
+                className="inline-flex shrink-0 items-center gap-2 rounded-full border border-on-dark/40 px-5 py-2.5 text-sm font-semibold text-on-dark hover:bg-white/10"
               >
                 <LineIcon className="h-4 w-4" />
                 {t.assistantFallbackLineLabel}

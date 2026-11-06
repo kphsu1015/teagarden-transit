@@ -23,20 +23,20 @@ export default function Header() {
   return (
     <header ref={headerRef} className="sticky top-0 z-40 border-b border-white/10 bg-pine-dark">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-6 py-3">
-        <Link href="/" className="font-serif text-xs tracking-[0.25em] text-paper sm:text-sm sm:tracking-[0.3em]">
+        <Link href="/" className="font-serif text-xs tracking-[0.25em] text-on-dark sm:text-sm sm:tracking-[0.3em]">
           {t.siteTitle}
         </Link>
         <nav className="flex items-center gap-3 sm:gap-4">
-          <Link href="/bus" className="hidden text-sm font-medium text-paper/85 hover:text-gold-soft sm:inline">
+          <Link href="/bus" className="hidden text-sm font-medium text-on-dark/85 hover:text-gold-soft sm:inline">
             {t.navBus}
           </Link>
-          <Link href="/rail" className="hidden text-sm font-medium text-paper/85 hover:text-gold-soft sm:inline">
+          <Link href="/rail" className="hidden text-sm font-medium text-on-dark/85 hover:text-gold-soft sm:inline">
             {t.navRail}
           </Link>
-          <Link href="/drive" className="hidden text-sm font-medium text-paper/85 hover:text-gold-soft sm:inline">
+          <Link href="/drive" className="hidden text-sm font-medium text-on-dark/85 hover:text-gold-soft sm:inline">
             {t.navDrive}
           </Link>
-          <Link href="/map" className="hidden text-sm font-medium text-paper/85 hover:text-gold-soft sm:inline">
+          <Link href="/map" className="hidden text-sm font-medium text-on-dark/85 hover:text-gold-soft sm:inline">
             {t.navMap}
           </Link>
           <LanguageSwitcher dark />

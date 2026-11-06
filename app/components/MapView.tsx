@@ -107,7 +107,7 @@ export default function MapView({ tripMap }: { tripMap: MapViewData | null }) {
   return (
     <section className="mx-auto max-w-4xl px-6 py-12 md:py-16">
       <h1 className="font-serif text-3xl text-ink">{t.mapPageTitle}</h1>
-      <p className="mt-2 text-xs text-ink-soft/70">{t.mapSource}</p>
+      <p className="mt-2 text-xs text-ink-soft">{t.mapSource}</p>
 
       <button
         type="button"

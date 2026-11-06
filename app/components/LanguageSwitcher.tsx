@@ -15,7 +15,7 @@ export default function LanguageSwitcher({ dark = false }: { dark?: boolean }) {
   return (
     <div
       className={`inline-flex shrink-0 rounded-full p-0.5 text-xs backdrop-blur-sm ${
-        dark ? "border border-white/25 bg-white/10" : "border border-line bg-paper"
+        dark ? "border border-white/25 bg-white/10" : "border border-line bg-surface"
       }`}
     >
       {OPTIONS.map((opt) => (
@@ -26,11 +26,11 @@ export default function LanguageSwitcher({ dark = false }: { dark?: boolean }) {
           className={`rounded-full px-2.5 py-1 font-medium transition-colors ${
             lang === opt.value
               ? dark
-                ? "bg-gold text-pine-dark"
-                : "bg-pine text-paper"
+                ? "bg-gold text-gold-ink"
+                : "bg-pine text-on-dark"
               : dark
-                ? "text-paper/80 hover:bg-white/10"
-                : "text-ink-soft hover:bg-paper-dim"
+                ? "text-on-dark/80 hover:bg-white/10"
+                : "text-ink-soft hover:bg-surface-muted"
           }`}
         >
           {opt.label}

@@ -1,22 +1,24 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-paper: #faf5e9;
-  --color-paper-dim: #f1e9d6;
+  --color-surface: #eef1e6;
+  --color-surface-muted: #e2e8d6;
+  --color-on-dark: #faf5e9;
   --color-ink: #22301f;
   --color-ink-soft: #59614f;
   --color-pine: #2f5233;
   --color-pine-dark: #1e3a22;
   --color-gold: #b8863a;
+  --color-gold-ink: #142819;
   --color-gold-soft: #d8b876;
-  --color-line: #e0d6ba;
+  --color-line: #c7d1ba;
 
   --font-sans: var(--font-noto-sans-tc);
   --font-serif: var(--font-noto-serif-tc);
 }
 
 :root {
-  --background: #faf5e9;
+  --background: var(--color-surface);
   --foreground: #22301f;
 }
 
@@ -55,10 +57,10 @@ footer :focus-visible,
 
 ::selection {
   background: #2f5233;
-  color: #faf5e9;
+  color: var(--color-on-dark);
 }
 
-/* 淡淡紙張顆粒感，讓大面積米色背景不會過於平板 */
+/* 淡淡紙張顆粒感，讓大面積淡茶湯綠背景不會過於平板 */
 body::after {
   content: "";
   position: fixed;

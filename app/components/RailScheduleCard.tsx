@@ -45,7 +45,7 @@ function TripRow({
         </span>
         {/* 已發車用標籤標示，不把整列調淡，時刻仍清楚可讀 */}
         {isPast && (
-          <span className="rounded-full bg-paper-dim px-2 py-0.5 text-xs font-medium text-ink-soft">
+          <span className="rounded-full bg-surface-muted px-2 py-0.5 text-xs font-medium text-ink-soft">
             {t.railDepartedTag}
           </span>
         )}
@@ -95,22 +95,22 @@ export default function RailScheduleCard() {
 
       <div className="grid gap-8 md:grid-cols-2">
         <div>
-          <h3 className="mb-2 text-sm font-semibold tracking-wide text-ink-soft">{t.railUpTitle}</h3>
+          <h2 className="mb-2 text-sm font-semibold tracking-wide text-ink-soft">{t.railUpTitle}</h2>
           {allDeparted(upStatuses) && (
-            <p className="mb-1 rounded-lg bg-paper-dim px-3 py-2 text-xs text-ink-soft">{t.railAllDeparted}</p>
+            <p className="mb-1 rounded-lg bg-surface-muted px-3 py-2 text-xs text-ink-soft">{t.railAllDeparted}</p>
           )}
-          <ul className="divide-y divide-paper-dim">
+          <ul className="divide-y divide-line">
             {RAIL_UPWARD.map((trip, i) => (
               <TripRow key={trip.no} trip={trip} status={upStatuses[i]} sn={sn} nt={nt} tn={tn} />
             ))}
           </ul>
         </div>
         <div>
-          <h3 className="mb-2 text-sm font-semibold tracking-wide text-ink-soft">{t.railDownTitle}</h3>
+          <h2 className="mb-2 text-sm font-semibold tracking-wide text-ink-soft">{t.railDownTitle}</h2>
           {allDeparted(downStatuses) && (
-            <p className="mb-1 rounded-lg bg-paper-dim px-3 py-2 text-xs text-ink-soft">{t.railAllDeparted}</p>
+            <p className="mb-1 rounded-lg bg-surface-muted px-3 py-2 text-xs text-ink-soft">{t.railAllDeparted}</p>
           )}
-          <ul className="divide-y divide-paper-dim">
+          <ul className="divide-y divide-line">
             {RAIL_DOWNWARD.map((trip, i) => (
               <TripRow key={trip.no} trip={trip} status={downStatuses[i]} sn={sn} nt={nt} tn={tn} />
             ))}
@@ -118,10 +118,10 @@ export default function RailScheduleCard() {
         </div>
       </div>
 
-      <div className="mt-6 border-t border-paper-dim pt-4">
-        <h3 className="mb-2 text-sm font-semibold tracking-wide text-ink-soft">{t.transferTitle(sn(HOMESTAY_STOP))}</h3>
+      <div className="mt-6 border-t border-line pt-4">
+        <h2 className="mb-2 text-sm font-semibold tracking-wide text-ink-soft">{t.transferTitle(sn(HOMESTAY_STOP))}</h2>
         {TRANSFER_TRIPS.length > 0 ? (
-          <ul className="divide-y divide-paper-dim">
+          <ul className="divide-y divide-line">
             {TRANSFER_TRIPS.map((tr, i) => (
               <li key={i} className="flex flex-wrap items-center gap-x-3 gap-y-1 py-2 text-sm">
                 <span className="rounded-full bg-pine/10 px-2 py-0.5 text-xs font-medium text-pine-dark">
@@ -139,11 +139,11 @@ export default function RailScheduleCard() {
         )}
       </div>
 
-      <div className="mt-6 border-t border-paper-dim pt-4">
-        <h3 className="mb-2 text-sm font-semibold tracking-wide text-ink-soft">{t.fareRefTitle}</h3>
+      <div className="mt-6 border-t border-line pt-4">
+        <h2 className="mb-2 text-sm font-semibold tracking-wide text-ink-soft">{t.fareRefTitle}</h2>
         <ul className="grid grid-cols-1 gap-2 text-sm text-ink-soft sm:grid-cols-3">
           {RAIL_FARES.map((f) => (
-            <li key={f.pair} className="rounded-lg bg-paper-dim px-3 py-2">
+            <li key={f.pair} className="rounded-lg bg-surface-muted px-3 py-2">
               <span className="block text-ink">{fp(f.pair)}</span>
               <span className="text-ink-soft">
                 {t.fareFull} NT${f.full}／{t.fareHalf} NT${f.half}

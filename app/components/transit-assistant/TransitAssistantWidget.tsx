@@ -91,7 +91,7 @@ export default function TransitAssistantWidget() {
       <div className="fixed bottom-4 right-4 z-[70] flex flex-col items-end gap-2 sm:bottom-5 sm:right-5">
         <span
           aria-hidden={scrolled}
-          className={`rounded-full bg-pine-dark px-3 py-1.5 text-xs font-medium text-paper shadow-md transition-all duration-200 ${
+          className={`rounded-full bg-pine-dark px-3 py-1.5 text-xs font-medium text-on-dark shadow-md transition-all duration-200 ${
             scrolled ? "pointer-events-none translate-y-1 opacity-0" : "opacity-100"
           }`}
         >
@@ -101,7 +101,7 @@ export default function TransitAssistantWidget() {
           type="button"
           onClick={() => setPanelState("open")}
           aria-label={t.assistantButtonLabel}
-          className={`flex items-center justify-center rounded-full bg-pine text-paper shadow-lg shadow-pine-dark/40 transition-all hover:bg-pine-dark focus:outline-none focus:ring-2 focus:ring-gold-soft sm:h-16 sm:w-16 ${
+          className={`flex items-center justify-center rounded-full bg-pine text-on-dark shadow-lg shadow-pine-dark/40 transition-all hover:bg-pine-dark focus:outline-none focus:ring-2 focus:ring-gold-soft sm:h-16 sm:w-16 ${
             scrolled ? "h-11 w-11" : "h-14 w-14"
           }`}
         >
@@ -116,7 +116,7 @@ export default function TransitAssistantWidget() {
       <button
         type="button"
         onClick={() => setPanelState("open")}
-        className="fixed bottom-5 right-5 z-[70] flex items-center gap-2 rounded-full bg-pine px-4 py-3 text-sm font-medium text-paper shadow-lg shadow-pine-dark/40 hover:bg-pine-dark"
+        className="fixed bottom-5 right-5 z-[70] flex items-center gap-2 rounded-full bg-pine px-4 py-3 text-sm font-medium text-on-dark shadow-lg shadow-pine-dark/40 hover:bg-pine-dark"
       >
         <ChatIcon className="h-5 w-5" />
         {t.assistantButtonLabel}

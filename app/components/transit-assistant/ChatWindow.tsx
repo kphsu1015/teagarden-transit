@@ -245,10 +245,10 @@ export default function ChatWindow({
 
   return (
     <div className="flex max-h-[75vh] min-h-[420px] flex-col overflow-hidden rounded-2xl border border-line bg-white shadow-xl">
-      <div className="flex items-center justify-between gap-2 bg-pine-dark px-4 py-3 text-paper">
+      <div className="flex items-center justify-between gap-2 bg-pine-dark px-4 py-3 text-on-dark">
         <div>
           <p className="font-serif text-sm tracking-wide">{t.assistantTitle}</p>
-          <p className="text-xs text-paper/70">{t.assistantSubtitle}</p>
+          <p className="text-xs text-on-dark/70">{t.assistantSubtitle}</p>
         </div>
         <div className="flex items-center gap-1">
           <button
@@ -256,7 +256,7 @@ export default function ChatWindow({
             onClick={onClearConversation}
             aria-label={t.assistantClearAria}
             title={t.assistantClearAria}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-paper/80 hover:bg-white/10 hover:text-paper"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-on-dark/80 hover:bg-white/10 hover:text-on-dark"
           >
             <RefreshIcon className="h-4 w-4" />
           </button>
@@ -264,7 +264,7 @@ export default function ChatWindow({
             type="button"
             onClick={onMinimize}
             aria-label={t.assistantMinimizeAria}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-paper/80 hover:bg-white/10 hover:text-paper"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-on-dark/80 hover:bg-white/10 hover:text-on-dark"
           >
             <MinimizeIcon className="h-4 w-4" />
           </button>
@@ -272,7 +272,7 @@ export default function ChatWindow({
             type="button"
             onClick={onClose}
             aria-label={t.assistantCloseAria}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-paper/80 hover:bg-white/10 hover:text-paper"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-on-dark/80 hover:bg-white/10 hover:text-on-dark"
           >
             <CloseIcon className="h-4 w-4" />
           </button>
@@ -285,13 +285,13 @@ export default function ChatWindow({
         role="log"
         aria-live="polite"
         aria-label={t.assistantTitle}
-        className="flex-1 space-y-3 overflow-y-auto bg-paper px-4 py-4"
+        className="flex-1 space-y-3 overflow-y-auto bg-surface px-4 py-4"
       >
         {messages.map((m) => (
           <div key={m.id} className={`flex flex-col ${m.role === "user" ? "items-end" : "items-start"}`}>
             <div
               className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm leading-6 ${
-                m.role === "user" ? "bg-pine text-paper" : "border border-line bg-white text-ink"
+                m.role === "user" ? "bg-pine text-on-dark" : "border border-line bg-white text-ink"
               }`}
             >
               {renderMessageLines(m.text)}
@@ -338,14 +338,14 @@ export default function ChatWindow({
 
       <div className="border-t border-line bg-white px-4 py-3">
         {consentOpen && (
-          <div className="mb-3 rounded-xl border border-line bg-paper-dim p-3 text-xs leading-5 text-ink-soft">
+          <div className="mb-3 rounded-xl border border-line bg-surface-muted p-3 text-xs leading-5 text-ink-soft">
             <p className="font-medium text-ink">{t.assistantLocationConsentTitle}</p>
             <p className="mt-1">{t.assistantLocationConsentBody}</p>
             <div className="mt-2 flex gap-2">
               <button
                 type="button"
                 onClick={requestLocation}
-                className="rounded-full bg-pine px-3 py-1 font-medium text-paper hover:bg-pine-dark"
+                className="rounded-full bg-pine px-3 py-1 font-medium text-on-dark hover:bg-pine-dark"
               >
                 {t.assistantLocationConsentAllow}
               </button>
@@ -366,7 +366,7 @@ export default function ChatWindow({
               type="button"
               onClick={() => void sendText(t.assistantDriverOfferYes)}
               disabled={isSending}
-              className="rounded-full bg-pine px-3 py-1.5 text-xs font-medium text-paper hover:bg-pine-dark disabled:opacity-50"
+              className="rounded-full bg-pine px-3 py-1.5 text-xs font-medium text-on-dark hover:bg-pine-dark disabled:opacity-50"
             >
               {t.assistantDriverOfferYes}
             </button>
@@ -374,7 +374,7 @@ export default function ChatWindow({
               type="button"
               onClick={() => void sendText(t.assistantDriverOfferNo)}
               disabled={isSending}
-              className="rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink-soft hover:bg-paper-dim disabled:opacity-50"
+              className="rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink-soft hover:bg-surface-muted disabled:opacity-50"
             >
               {t.assistantDriverOfferNo}
             </button>
@@ -433,7 +433,7 @@ export default function ChatWindow({
               placeholder={t.assistantInputPlaceholder}
               disabled={isSending}
               maxLength={MAX_CHARS + 50}
-              className="w-full rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink focus:border-pine focus:outline-none focus:ring-1 focus:ring-pine disabled:bg-paper-dim"
+              className="w-full rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink focus:border-pine focus:outline-none focus:ring-1 focus:ring-pine disabled:bg-surface-muted"
             />
             <p className={`mt-1 text-right text-[11px] ${overLimit ? "text-red-600" : "text-ink-soft/60"}`}>
               {charCount}/{MAX_CHARS}
@@ -443,7 +443,7 @@ export default function ChatWindow({
             type="submit"
             disabled={isSending || !input.trim() || overLimit}
             aria-label={t.assistantSendAria}
-            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pine text-paper hover:bg-pine-dark disabled:opacity-40"
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-pine text-on-dark hover:bg-pine-dark disabled:opacity-40"
           >
             <SendIcon className="h-4 w-4" />
           </button>
