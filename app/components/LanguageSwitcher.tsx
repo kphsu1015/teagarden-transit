@@ -23,7 +23,7 @@ export default function LanguageSwitcher({ dark = false }: { dark?: boolean }) {
           key={opt.value}
           type="button"
           onClick={() => setLang(opt.value)}
-          className={`rounded-full px-2.5 py-1 font-medium transition-colors ${
+          className={`touch-target rounded-full px-2.5 py-1 font-medium transition-colors ${
             lang === opt.value
               ? dark
                 ? "bg-gold text-gold-ink"

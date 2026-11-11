@@ -120,7 +120,9 @@ export default function ChatWindow({
   }, [t.assistantWelcome]);
 
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+    // 使用者設定「減少動畫」時，聊天訊息改成直接捲到底，不用平滑捲動
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: reduceMotion ? "auto" : "smooth" });
   }, [messages]);
 
   function addAssistantMessage(text: string, debug?: unknown) {
@@ -256,7 +258,7 @@ export default function ChatWindow({
             onClick={onClearConversation}
             aria-label={t.assistantClearAria}
             title={t.assistantClearAria}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-on-dark/80 hover:bg-white/10 hover:text-on-dark"
+            className="touch-target-icon flex h-8 w-8 items-center justify-center rounded-full text-on-dark/80 hover:bg-white/10 hover:text-on-dark"
           >
             <RefreshIcon className="h-4 w-4" />
           </button>
@@ -264,7 +266,7 @@ export default function ChatWindow({
             type="button"
             onClick={onMinimize}
             aria-label={t.assistantMinimizeAria}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-on-dark/80 hover:bg-white/10 hover:text-on-dark"
+            className="touch-target-icon flex h-8 w-8 items-center justify-center rounded-full text-on-dark/80 hover:bg-white/10 hover:text-on-dark"
           >
             <MinimizeIcon className="h-4 w-4" />
           </button>
@@ -272,7 +274,7 @@ export default function ChatWindow({
             type="button"
             onClick={onClose}
             aria-label={t.assistantCloseAria}
-            className="flex h-8 w-8 items-center justify-center rounded-full text-on-dark/80 hover:bg-white/10 hover:text-on-dark"
+            className="touch-target-icon flex h-8 w-8 items-center justify-center rounded-full text-on-dark/80 hover:bg-white/10 hover:text-on-dark"
           >
             <CloseIcon className="h-4 w-4" />
           </button>
@@ -297,7 +299,7 @@ export default function ChatWindow({
               {renderMessageLines(m.text)}
             </div>
             {m.debug != null && (
-              <details className="mt-1 max-w-[85%] rounded-lg bg-ink/5 px-2 py-1 text-[10px] text-ink-soft">
+              <details className="mt-1 max-w-[85%] rounded-lg bg-ink/5 px-2 py-1 text-xs text-ink-soft">
                 <summary className="cursor-pointer select-none">Debug info (dev only)</summary>
                 <pre className="mt-1 overflow-x-auto whitespace-pre-wrap break-all">{JSON.stringify(m.debug, null, 2)}</pre>
               </details>
@@ -345,14 +347,14 @@ export default function ChatWindow({
               <button
                 type="button"
                 onClick={requestLocation}
-                className="rounded-full bg-pine px-3 py-1 font-medium text-on-dark hover:bg-pine-dark"
+                className="touch-target rounded-full bg-pine px-3 py-1 font-medium text-on-dark hover:bg-pine-dark"
               >
                 {t.assistantLocationConsentAllow}
               </button>
               <button
                 type="button"
                 onClick={() => setConsentOpen(false)}
-                className="rounded-full border border-line px-3 py-1 font-medium text-ink-soft hover:bg-white"
+                className="touch-target rounded-full border border-line px-3 py-1 font-medium text-ink-soft hover:bg-white"
               >
                 {t.assistantLocationConsentCancel}
               </button>
@@ -366,7 +368,7 @@ export default function ChatWindow({
               type="button"
               onClick={() => void sendText(t.assistantDriverOfferYes)}
               disabled={isSending}
-              className="rounded-full bg-pine px-3 py-1.5 text-xs font-medium text-on-dark hover:bg-pine-dark disabled:opacity-50"
+              className="touch-target rounded-full bg-pine px-3 py-1.5 text-xs font-medium text-on-dark hover:bg-pine-dark disabled:opacity-50"
             >
               {t.assistantDriverOfferYes}
             </button>
@@ -374,7 +376,7 @@ export default function ChatWindow({
               type="button"
               onClick={() => void sendText(t.assistantDriverOfferNo)}
               disabled={isSending}
-              className="rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink-soft hover:bg-surface-muted disabled:opacity-50"
+              className="touch-target rounded-full border border-line px-3 py-1.5 text-xs font-medium text-ink-soft hover:bg-surface-muted disabled:opacity-50"
             >
               {t.assistantDriverOfferNo}
             </button>
@@ -386,7 +388,7 @@ export default function ChatWindow({
             type="button"
             onClick={() => setPendingOrigin(null)}
             aria-label={t.assistantResetAria}
-            className="mb-2 inline-flex items-center gap-1 rounded-full bg-pine/10 px-3 py-1 text-xs font-medium text-pine-dark hover:bg-pine/20"
+            className="touch-target mb-2 inline-flex items-center gap-1 rounded-full bg-pine/10 px-3 py-1 text-xs font-medium text-pine-dark hover:bg-pine/20"
           >
             {pendingOrigin.display} ✕
           </button>
@@ -401,7 +403,7 @@ export default function ChatWindow({
                 type="button"
                 onClick={() => handleQuickTap(loc)}
                 disabled={isSending}
-                className="rounded-full border border-line px-2.5 py-1 text-xs text-ink hover:border-pine hover:text-pine-dark disabled:opacity-50"
+                className="touch-target rounded-full border border-line px-2.5 py-1 text-xs text-ink hover:border-pine hover:text-pine-dark disabled:opacity-50"
               >
                 {sn(loc)}
               </button>
@@ -410,7 +412,7 @@ export default function ChatWindow({
               type="button"
               onClick={() => setConsentOpen(true)}
               disabled={isSending || geoLoading}
-              className="flex items-center gap-1 rounded-full border border-gold-soft bg-gold-soft/10 px-2.5 py-1 text-xs font-medium text-gold hover:bg-gold-soft/20 disabled:opacity-50"
+              className="touch-target flex items-center gap-1 rounded-full border border-gold-soft bg-gold-soft/10 px-2.5 py-1 text-xs font-medium text-gold-dark hover:bg-gold-soft/20 disabled:opacity-50"
             >
               <LocationIcon className="h-3.5 w-3.5" />
               {geoLoading ? "…" : t.assistantUseLocationLabel}
@@ -435,7 +437,7 @@ export default function ChatWindow({
               maxLength={MAX_CHARS + 50}
               className="w-full rounded-lg border border-line bg-white px-3 py-2 text-sm text-ink focus:border-pine focus:outline-none focus:ring-1 focus:ring-pine disabled:bg-surface-muted"
             />
-            <p className={`mt-1 text-right text-[11px] ${overLimit ? "text-red-600" : "text-ink-soft/60"}`}>
+            <p className={`mt-1 text-right text-xs ${overLimit ? "text-red-600" : "text-ink-soft"}`}>
               {charCount}/{MAX_CHARS}
             </p>
           </div>

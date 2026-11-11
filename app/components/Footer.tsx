@@ -14,20 +14,20 @@ export default function Footer() {
             <p className="font-serif text-base tracking-[0.3em] text-on-dark">{t.siteTitle}</p>
             <p className="mt-2 max-w-xs text-sm leading-6 text-on-dark/60">{t.heroKicker}</p>
           </div>
-          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <Link href="/bus" className="text-on-dark/80 hover:text-gold-soft">
+          <nav className="flex flex-wrap gap-x-6 text-sm">
+            <Link href="/bus" className="inline-block py-2.5 text-on-dark/80 hover:text-gold-soft">
               {t.navBus}
             </Link>
-            <Link href="/rail" className="text-on-dark/80 hover:text-gold-soft">
+            <Link href="/rail" className="inline-block py-2.5 text-on-dark/80 hover:text-gold-soft">
               {t.navRail}
             </Link>
-            <Link href="/drive" className="text-on-dark/80 hover:text-gold-soft">
+            <Link href="/drive" className="inline-block py-2.5 text-on-dark/80 hover:text-gold-soft">
               {t.navDrive}
             </Link>
-            <Link href="/map" className="text-on-dark/80 hover:text-gold-soft">
+            <Link href="/map" className="inline-block py-2.5 text-on-dark/80 hover:text-gold-soft">
               {t.navMap}
             </Link>
-            <Link href="/"className="text-on-dark/80 hover:text-gold-soft">
+            <Link href="/"className="inline-block py-2.5 text-on-dark/80 hover:text-gold-soft">
               {t.backHome}
             </Link>
           </nav>

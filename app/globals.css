@@ -10,6 +10,7 @@
   --color-pine-dark: #1e3a22;
   --color-gold: #b8863a;
   --color-gold-ink: #142819;
+  --color-gold-dark: #7a5712;
   --color-gold-soft: #d8b876;
   --color-line: #c7d1ba;
 
@@ -69,4 +70,21 @@ body::after {
   pointer-events: none;
   opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* 手機／觸控裝置：小按鈕點擊範圍至少 40px（電腦滑鼠版不變）。只設最小尺寸，不改 display，避免蓋掉元件自己的版面 */
+@media (max-width: 640px), (pointer: coarse) {
+  .touch-target { min-height: 40px; }
+  .touch-target-icon { min-height: 40px; min-width: 40px; }
+}
+
+/* 使用者設定「減少動畫」時：關掉平滑捲動，過場與動畫縮到最短 */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
